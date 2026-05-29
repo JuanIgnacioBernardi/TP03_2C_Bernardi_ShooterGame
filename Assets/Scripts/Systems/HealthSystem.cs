@@ -19,7 +19,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
     {
         onLifeChanged?.Invoke(currentHealth, maxHealth);
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (damage < 0 || isInvulnerable) return;
         if (currentHealth <= 0) return;
