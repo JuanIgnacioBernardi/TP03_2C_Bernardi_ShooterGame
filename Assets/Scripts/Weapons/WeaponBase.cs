@@ -38,6 +38,30 @@ public abstract class WeaponBase : MonoBehaviour
         isReloading = false;
         OnReloadEnd();
     }
+    protected void PlayMuzzleEffects(
+    ParticleSystem flash,
+    Light light,
+    float duration,
+    ref Coroutine lightCoroutine)
+    {
+        if (flash != null)
+        {
+            flash.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            flash.Play();
+        }
+
+        if (light != null)
+        {
+            if (lightCoroutine != null) StopCoroutine(lightCoroutine);
+            lightCoroutine = StartCoroutine(MuzzleLightRoutine(light, duration));
+        }
+    }
+    private IEnumerator MuzzleLightRoutine(Light light, float duration)
+    {
+        light.enabled = true;
+        yield return new WaitForSeconds(duration);
+        light.enabled = false;
+    }
     protected virtual void OnReloadStart() { }
     protected virtual void OnReloadEnd() { }
     public int CurrentAmmo => currentAmmo;

@@ -4,11 +4,17 @@ public class Pistol : WeaponBase
 {
     [Header("References")]
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip shootSound;
     [SerializeField] private AudioClip reloadSound;
     [SerializeField] private LayerMask hitMask;
+
+    [Header("Muzzle config")]
+    [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private Light muzzleLight;
+    [SerializeField] private float muzzleLightDuration = 0.1f;
+
+    private Coroutine muzzleLightCoroutine;
 
     protected override void Awake()
     {
@@ -30,17 +36,15 @@ public class Pistol : WeaponBase
     }
     protected override void Shoot()
     {
-        if (muzzleFlash != null) muzzleFlash.Play();
-        if (audioSource != null && shootSound != null) audioSource.PlayOneShot(shootSound);
+        PlayMuzzleEffects(muzzleFlash, muzzleLight, muzzleLightDuration, ref muzzleLightCoroutine);
+
+        if (audioSource != null && shootSound != null)
+            audioSource.PlayOneShot(shootSound);
 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 1f);
 
         if (Physics.Raycast(ray, out RaycastHit hit, range, hitMask))
-        {
-            IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
-            target?.TakeDamage(damage);
-        }
+            hit.collider.GetComponentInParent<IDamageable>()?.TakeDamage(damage);
     }
     protected override void OnReloadStart()
     {
