@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PoolSetting", menuName = "Pool/Setting")]
 public class PoolSettingSo : ScriptableObject
 {
-    public List<PoolSetting> poolSettings = new List<PoolSetting>();
+    public List<PoolSetting> poolSettings = new();
 }
 [Serializable]
 public class PoolSetting

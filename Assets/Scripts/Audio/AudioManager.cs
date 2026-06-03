@@ -1,75 +1,73 @@
 using UnityEngine;
+
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager Instance { get; private set; }
-
-    [Header("-------- Audio Source --------")]
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioSource uiSource;
-
-    [Header("Music")]
-    public AudioClip backgroundMusic;
-
-    private void Awake()
+    private AudioSource musicSource;
+    private AudioSource sfxSource;
+    private AudioSource uiSource;
+    public void Setup(AudioSource music, AudioSource sfx, AudioSource ui)
     {
-        // Destroying duplicates and setting up singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject); // Persist across scenes
+        musicSource = music;
+        sfxSource = sfx;
+        uiSource = ui;
     }
-    private void Start()
+    private void OnEnable()
     {
-        // Play background music on start
-        if (musicSource == null || backgroundMusic == null) return;
-        musicSource.clip = backgroundMusic;
-        musicSource.Play();
+        AudioEvents.OnPlayMusic += PlayMusic;
+        AudioEvents.OnStopMusic += StopMusic;
+        AudioEvents.OnPlaySFX += PlaySFX;
+        AudioEvents.OnPlayLoopedSFX += PlayLoopedSFX;
+        AudioEvents.OnStopLoopedSFX += StopLoopedSFX;
+        AudioEvents.OnPlayUI += PlayUI;
+        AudioEvents.OnStopAll += StopAll;
     }
-    // ── Music ──────────────────────────────────────────
-    public void PlayMusic(AudioClip clip)
+    private void OnDisable()
+    {
+        AudioEvents.OnPlayMusic -= PlayMusic;
+        AudioEvents.OnStopMusic -= StopMusic;
+        AudioEvents.OnPlaySFX -= PlaySFX;
+        AudioEvents.OnPlayLoopedSFX -= PlayLoopedSFX;
+        AudioEvents.OnStopLoopedSFX -= StopLoopedSFX;
+        AudioEvents.OnPlayUI -= PlayUI;
+        AudioEvents.OnStopAll -= StopAll;
+    }
+    private void PlayMusic(AudioClip clip)
     {
         if (musicSource == null || clip == null) return;
         if (musicSource.clip == clip) return;
         musicSource.clip = clip;
         musicSource.Play();
     }
-    public void StopMusic()
+    private void StopMusic()
     {
         if (musicSource == null) return;
         musicSource.Stop();
         musicSource.clip = null;
     }
-    // ── SFX ─────────────────────────────────────────────
-    public void PlaySFX(AudioClip clip)
+    private void PlaySFX(AudioClip clip)
     {
         if (sfxSource == null || clip == null) return;
         sfxSource.PlayOneShot(clip);
     }
-    public void PlayLoopedSFX(AudioClip clip)
+    private void PlayLoopedSFX(AudioClip clip)
     {
         if (sfxSource == null || clip == null) return;
         sfxSource.clip = clip;
         sfxSource.loop = true;
         sfxSource.Play();
     }
-    public void StopLoopedSFX()
+    private void StopLoopedSFX()
     {
         if (sfxSource == null) return;
         sfxSource.loop = false;
         sfxSource.Stop();
     }
-    // ── UI ──────────────────────────────────────────────
-    public void PlayUI(AudioClip clip)
+    private void PlayUI(AudioClip clip)
     {
         if (uiSource == null || clip == null) return;
         uiSource.PlayOneShot(clip);
     }
-    // ── Stop All ─────────────────────────────────────────
-    public void StopAll()
+    private void StopAll()
     {
         StopMusic();
         StopLoopedSFX();

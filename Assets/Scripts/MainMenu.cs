@@ -55,7 +55,7 @@ public class MainMenu : MonoBehaviour
     }
     public void CloseSettings()
     {
-        AudioManager.Instance.PlayUI(clickSound);
+        AudioEvents.RaisePlayUI(clickSound);
         settingsCanvas.SetActive(false);
         mainCanvas.SetActive(true);
     }
@@ -75,7 +75,7 @@ public class MainMenu : MonoBehaviour
 
         entry.callback.AddListener
             (
-                (eventData) => { AudioManager.Instance.PlayUI(hoverSound); ; }
+                (eventData) => { AudioEvents.RaisePlayUI(hoverSound); }
             );
 
         trigger.triggers.Add(entry);
