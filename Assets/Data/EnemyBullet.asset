@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyBullet
   m_EditorClassIdentifier: Assembly-CSharp::PoolSettingSo
   poolSettings:
-  - prefab: {fileID: 0}
+  - prefab: {fileID: 2089993210182428181, guid: ade408a71fe0c0c4f8a727b25a1c514c, type: 3}
     quantity: 15

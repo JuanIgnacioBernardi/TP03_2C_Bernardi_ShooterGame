@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Grenade
   m_EditorClassIdentifier: Assembly-CSharp::PoolSettingSo
   poolSettings:
-  - prefab: {fileID: 0}
+  - prefab: {fileID: 1889459721431822051, guid: 985a183e8069b74458f27b1e8aa8add8, type: 3}
     quantity: 5
