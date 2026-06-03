@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411b7e5e4057f0841b08468cc3f31c23, type: 3}
   m_Name: PistolData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
-  weaponName: 
+  weaponName: Pistol
   hudIcon: {fileID: 0}
-  damage: 0
-  range: 0
-  fireRate: 0
-  reloadTime: 0
-  magazineSize: 0
-  muzzleLightDuration: 0.1
-  shootSound: {fileID: 0}
+  damage: 35
+  range: 40
+  fireRate: 3
+  reloadTime: 1.6
+  magazineSize: 12
+  muzzleLightDuration: 0.05
+  shootSound: {fileID: 8300000, guid: 04a437bd5bf1fc042ab195cde18c8b23, type: 3}
   reloadSound: {fileID: 0}
   pickupPrefab: {fileID: 0}
