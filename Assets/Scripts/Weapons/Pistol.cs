@@ -5,25 +5,16 @@ public class Pistol : WeaponBase
     [Header("References")]
     [SerializeField] private Camera playerCamera;
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip shootSound;
-    [SerializeField] private AudioClip reloadSound;
     [SerializeField] private LayerMask hitMask;
 
-    [Header("Muzzle config")]
+    [Header("Muzzle")]
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private Light muzzleLight;
-    [SerializeField] private float muzzleLightDuration = 0.1f;
 
     private Coroutine muzzleLightCoroutine;
 
     protected override void Awake()
     {
-        damage = 40f;
-        range = 50f;
-        fireRate = 3f;
-        reloadTime = 1.5f;
-        magazineSize = 12;
-
         base.Awake();
     }
     private void Update()
@@ -36,10 +27,11 @@ public class Pistol : WeaponBase
     }
     protected override void Shoot()
     {
-        PlayMuzzleEffects(muzzleFlash, muzzleLight, muzzleLightDuration, ref muzzleLightCoroutine);
+        float lightDuration = data != null ? data.muzzleLightDuration : 0.1f;
+        PlayMuzzleEffects(muzzleFlash, muzzleLight, lightDuration, ref muzzleLightCoroutine);
 
-        if (audioSource != null && shootSound != null)
-            audioSource.PlayOneShot(shootSound);
+        if (audioSource != null && data != null && data.shootSound != null)
+            audioSource.PlayOneShot(data.shootSound);
 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
@@ -48,6 +40,7 @@ public class Pistol : WeaponBase
     }
     protected override void OnReloadStart()
     {
-        audioSource?.PlayOneShot(reloadSound);
+        if (audioSource != null && data != null && data.reloadSound != null)
+            audioSource.PlayOneShot(data.reloadSound);
     }
 }

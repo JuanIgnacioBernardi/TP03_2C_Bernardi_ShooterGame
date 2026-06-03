@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 public abstract class WeaponBase : MonoBehaviour
 {
+    [Header("Weapon Data")]
+    [SerializeField] protected WeaponDataSO data;
+
     protected float damage;
     protected float range;
     protected float fireRate;
@@ -13,6 +16,14 @@ public abstract class WeaponBase : MonoBehaviour
     private float nextFireTime;
     protected virtual void Awake()
     {
+        if (data != null)
+        {
+            damage = data.damage;
+            range = data.range;
+            fireRate = data.fireRate;
+            reloadTime = data.reloadTime;
+            magazineSize = data.magazineSize;
+        }
         currentAmmo = magazineSize;
     }
     public void TryShoot()
@@ -67,4 +78,5 @@ public abstract class WeaponBase : MonoBehaviour
     public int CurrentAmmo => currentAmmo;
     public int MagazineSize => magazineSize;
     public bool IsReloading => isReloading;
+    public WeaponDataSO Data => data;
 }
