@@ -1,6 +1,6 @@
 public interface IPooleable
 {
-    bool IsActive { get; set; }
+    bool IsActive { get; }
     void Activate ();
     void DeActivate ();
 }

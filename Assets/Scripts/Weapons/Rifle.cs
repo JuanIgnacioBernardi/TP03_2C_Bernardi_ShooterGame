@@ -38,7 +38,7 @@ public class Rifle : WeaponBase
 
         if (Physics.Raycast(ray, out RaycastHit hit, range, hitMask))
         {
-            Debug.Log($"Hit: {hit.collider.gameObject.name}");
+            SpawnImpact(hit);
             hit.collider.GetComponentInParent<IDamageable>()?.TakeDamage(damage);
         }
     }

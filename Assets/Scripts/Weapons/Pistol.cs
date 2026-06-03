@@ -36,7 +36,10 @@ public class Pistol : WeaponBase
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
         if (Physics.Raycast(ray, out RaycastHit hit, range, hitMask))
+        {
+            SpawnImpact(hit);
             hit.collider.GetComponentInParent<IDamageable>()?.TakeDamage(damage);
+        }
     }
     protected override void OnReloadStart()
     {

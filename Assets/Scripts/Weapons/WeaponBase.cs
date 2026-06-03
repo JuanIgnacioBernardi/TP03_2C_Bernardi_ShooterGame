@@ -73,6 +73,13 @@ public abstract class WeaponBase : MonoBehaviour
         yield return new WaitForSeconds(duration);
         light.enabled = false;
     }
+    protected void SpawnImpact(RaycastHit hit)
+    {
+        if (GameBootstrapper.Instance == null) return;
+
+        ImpactParticle impact = GameBootstrapper.Instance.PoolManager.GetFromPool<ImpactParticle>();
+        impact?.Spawn(hit.point, hit.normal);
+    }
     protected virtual void OnReloadStart() { }
     protected virtual void OnReloadEnd() { }
     public int CurrentAmmo => currentAmmo;
