@@ -1,16 +1,7 @@
-using UnityEngine;
-
-public class StateTypeEnemy : MonoBehaviour
+public enum StateTypeEnemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    Idle = 0,
+    Aim = 1,
+    Attack = 2,
+    Die = 3
 }

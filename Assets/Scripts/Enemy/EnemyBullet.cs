@@ -54,6 +54,27 @@ public class EnemyBullet : MonoBehaviour, IPooleable
         }
         DeActivate();
     }
+    public void Move(Vector3 startPos, Vector3 endPos, float duration, float height)
+    {
+        Activate();
+        transform.position = startPos;
+        if (_returnCoroutine != null) StopCoroutine(_returnCoroutine);
+        _returnCoroutine = StartCoroutine(ArcRoutine(startPos, endPos, duration, height));
+    }
+    private IEnumerator ArcRoutine(Vector3 start, Vector3 end, float duration, float height)
+    {
+        float time = 0f;
+        while (time < duration)
+        {
+            float t = time / duration;
+            Vector3 pos = Vector3.Lerp(start, end, t);
+            pos.y += height * t * 4f * (1f - t); 
+            transform.position = pos;
+            time += Time.deltaTime;
+            yield return null;
+        }
+        DeActivate();
+    }
     private IEnumerator ReturnAfterLifetime()
     {
         yield return new WaitForSeconds(lifeTime);
