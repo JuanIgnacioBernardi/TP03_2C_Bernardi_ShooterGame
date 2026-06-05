@@ -10,6 +10,8 @@ public class HealthSystem : MonoBehaviour, IDamageable
     private float currentHealth;
 
     public bool isInvulnerable = false;
+    public float CurrentHealth => currentHealth;
+    public float MaxHealth => maxHealth;
 
     private void Awake()
     {
