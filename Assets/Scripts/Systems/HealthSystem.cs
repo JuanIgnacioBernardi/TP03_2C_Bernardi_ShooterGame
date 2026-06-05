@@ -5,6 +5,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
 {
     public event Action<float, float> onLifeChanged; // current health, max health
     public event Action onDie;
+    public event Action OnDamaged;
 
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
@@ -35,6 +36,7 @@ public class HealthSystem : MonoBehaviour, IDamageable
         }
         else
         {
+            OnDamaged?.Invoke();
             onLifeChanged?.Invoke(currentHealth, maxHealth);
         }
     }
