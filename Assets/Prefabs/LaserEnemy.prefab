@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 303359157491314552}
   - component: {fileID: 5010343799130090629}
   - component: {fileID: 4043703632897479844}
+  - component: {fileID: 6574719524437916188}
   - component: {fileID: 1209724714477274735}
   - component: {fileID: 2847259630178410118}
   - component: {fileID: 1158281611187737213}
@@ -64,6 +65,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ad387c84d535e48bf512e0b6e4aa36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LaserEnemy
+--- !u!54 &6574719524437916188
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136929243906235557}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!136 &1209724714477274735
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -115,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   _data: {fileID: 11400000, guid: 69a9881fe21d05f45aad7d9fb3d290b3, type: 2}
   _anim: {fileID: 2979129375234501505}
+  attackCooldown: 2
 --- !u!120 &2115941574651319523
 LineRenderer:
   serializedVersion: 3
