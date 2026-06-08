@@ -47,42 +47,47 @@ public class EnemyShoot : MonoBehaviour
     private IEnumerator AimingRoutine()
     {
         Animator anim = _controller.GetAnim();
-        while (_isShooting)
+
+        // Aim phase
+        anim.SetInteger(HashState, (int)StateTypeEnemy.Aim);
+        if (_laserRenderer != null) _laserRenderer.enabled = true;
+
+        float clock = 0f;
+        float aimTime = _controller.Data.shootingSpeed / 2f;
+
+        while (clock < aimTime)
         {
-            // Aim — Laser follow player
-            if (_laserRenderer != null) _laserRenderer.enabled = true;
-            anim.SetInteger(HashState, (int)StateTypeEnemy.Aim);
-
-            float clock = 0f;
-            float aimTime = _controller.Data.shootingSpeed / 2f;
-
-            while (clock < aimTime)
+            clock += Time.deltaTime;
+            if (_controller.Player != null)
             {
-                clock += Time.deltaTime;
-
-                if (_controller.Player != null)
+                transform.LookAt(_controller.Player);
+                if (_laserRenderer != null)
                 {
-                    transform.LookAt(_controller.Player);
-                    if (_laserRenderer != null)
-                    {
-                        _laserRenderer.SetPosition(0, _shootingPos.position);
-                        _laserRenderer.SetPosition(1, _controller.Player.position + Vector3.up);
-                    }
+                    _laserRenderer.SetPosition(0, _shootingPos.position);
+                    _laserRenderer.SetPosition(1, _controller.Player.position + Vector3.up);
                 }
-                yield return null;
             }
-
-            // Shoot — Turn off laser and raycast
-            if (_laserRenderer != null) _laserRenderer.enabled = false;
-            anim.SetInteger(HashState, (int)StateTypeEnemy.Attack);
-            ShootRaycast();
-
-            yield return new WaitForSeconds(_controller.Data.shootingSpeed);
+            yield return null;
         }
+
+        // Shoot phase
         if (_laserRenderer != null) _laserRenderer.enabled = false;
+        anim.SetInteger(HashState, (int)StateTypeEnemy.Attack);
+        ShootRaycast();
+
+        // Wait for attack animation
+        yield return new WaitForSeconds(0.5f);
+
+        // Back to idle — la FSM decide cuándo volver a atacar
+        anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
+        _coroutineAiming = null;
+
+        // Notifica al controller que terminó el ciclo
+        _controller.OnAttackCycleComplete();
     }
     private void ShootRaycast()
     {
+        Debug.Log("[EnemyShoot] ShootRaycast called");
         if (_controller.Player == null) return;
 
         Vector3 targetPos = _controller.Player.position + Vector3.up * 1f; 

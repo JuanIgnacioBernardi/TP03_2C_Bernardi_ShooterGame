@@ -12,6 +12,7 @@ public class EnemyStateIdle : EnemyStates
     }
     public override void OnUpdate()
     {
+        if (_controller.IsOnCooldown) return;
         if (_controller.CheckForNearPlayer())
             _controller.SwitchState(_controller.FindState(StateTypeEnemy.Attack));
     }

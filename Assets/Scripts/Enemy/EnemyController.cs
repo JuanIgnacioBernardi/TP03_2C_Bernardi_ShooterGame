@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(EnemyShoot), typeof(HealthSystem))]
@@ -5,6 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private EnemyDataSO _data;
     [SerializeField] private Animator _anim;
+    [SerializeField] private float attackCooldown = 2f;
+    private Coroutine _cooldownCoroutine;
 
     public Transform Player { get; private set; }
     public EnemyDataSO Data => _data;
@@ -14,6 +17,7 @@ public class EnemyController : MonoBehaviour
     private HealthSystem _healthSystem;
     private List<EnemyStates> _states = new();
     private EnemyStates _currentState;
+    public bool IsOnCooldown { get; set; } = false;
     private void Awake()
     {
         Shoot = GetComponent<EnemyShoot>();
@@ -57,6 +61,19 @@ public class EnemyController : MonoBehaviour
     {
         if (Player == null) return false;
         return Vector3.Distance(transform.position, Player.position) < _data.detectionRange;
+    }
+    public void OnAttackCycleComplete()
+    {
+        IsOnCooldown = true;
+        SwitchState(FindState(StateTypeEnemy.Idle));
+        if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
+        _cooldownCoroutine = StartCoroutine(AttackCooldown());
+    }
+    private IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(attackCooldown);
+        IsOnCooldown = false;
+        _cooldownCoroutine = null;
     }
     public Animator GetAnim() => _anim;
     private void OnDie_ChangeState() => SwitchState(FindState(StateTypeEnemy.Die));
