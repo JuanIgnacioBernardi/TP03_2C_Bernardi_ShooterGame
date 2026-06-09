@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2847259630178410118}
   - component: {fileID: 1158281611187737213}
   - component: {fileID: 2115941574651319523}
+  - component: {fileID: 3582000251284438347}
   m_Layer: 10
   m_Name: LaserEnemy
   m_TagString: Untagged
@@ -143,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   _data: {fileID: 11400000, guid: 69a9881fe21d05f45aad7d9fb3d290b3, type: 2}
   _anim: {fileID: 2979129375234501505}
-  attackCooldown: 2
+  canMove: 1
 --- !u!120 &2115941574651319523
 LineRenderer:
   serializedVersion: 3
@@ -254,6 +255,28 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!195 &3582000251284438347
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136929243906235557}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &3328374178066482544
 PrefabInstance:
   m_ObjectHideFlags: 0

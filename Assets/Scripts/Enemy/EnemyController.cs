@@ -1,27 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(EnemyShoot), typeof(HealthSystem))]
+using UnityEngine.AI;
+[RequireComponent(typeof(EnemyShoot), typeof(HealthSystem), typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
+    [Header("Data")]
     [SerializeField] private EnemyDataSO _data;
     [SerializeField] private Animator _anim;
-    [SerializeField] private float attackCooldown = 2f;
-    private Coroutine _cooldownCoroutine;
+
+    [Header("Behaviour")]
+    [SerializeField] private bool canMove = false;
 
     public Transform Player { get; private set; }
     public EnemyDataSO Data => _data;
     public EnemyAttackType AttackType => _data.attackType;
     public EnemyShoot Shoot { get; private set; }
+    public NavMeshAgent Agent { get; private set; }
+    public bool IsOnCooldown { get; set; } = false;
+    public bool CanMove => canMove;
 
     private HealthSystem _healthSystem;
     private List<EnemyStates> _states = new();
     private EnemyStates _currentState;
-    public bool IsOnCooldown { get; set; } = false;
+    private Coroutine _cooldownCoroutine;
     private void Awake()
     {
         Shoot = GetComponent<EnemyShoot>();
         _healthSystem = GetComponent<HealthSystem>();
+        Agent = GetComponent<NavMeshAgent>();
         SetupFSM();
     }
     private void OnEnable() => _healthSystem.onDie += OnDie_ChangeState;
@@ -34,6 +41,12 @@ public class EnemyController : MonoBehaviour
     }
     private void SetupFSM()
     {
+        if (canMove)
+        {
+            _states.Add(new EnemyStateRoam());
+            _states.Add(new EnemyStateFollow());
+        }
+
         _states.Add(new EnemyStateIdle());
         _states.Add(new EnemyStateAttack());
         _states.Add(new EnemyStateDie());
@@ -41,7 +54,11 @@ public class EnemyController : MonoBehaviour
         foreach (EnemyStates s in _states)
             s.Initialize(_anim, this);
 
-        _currentState = FindState(StateTypeEnemy.Idle);
+        // Starts in roam or idle depending on if it can move
+        _currentState = canMove
+            ? FindState(StateTypeEnemy.Roam)
+            : FindState(StateTypeEnemy.Idle);
+
         _currentState.OnEnter();
     }
     public void SwitchState(EnemyStates newState)
@@ -62,16 +79,21 @@ public class EnemyController : MonoBehaviour
         if (Player == null) return false;
         return Vector3.Distance(transform.position, Player.position) < _data.detectionRange;
     }
+    public bool CheckForAttackRange()
+    {
+        if (Player == null) return false;
+        return Vector3.Distance(transform.position, Player.position) < _data.attackRange;
+    }
     public void OnAttackCycleComplete()
     {
         IsOnCooldown = true;
-        SwitchState(FindState(StateTypeEnemy.Idle));
+        SwitchState(FindState(canMove ? StateTypeEnemy.Roam : StateTypeEnemy.Idle));
         if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
         _cooldownCoroutine = StartCoroutine(AttackCooldown());
     }
     private IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(attackCooldown);
+        yield return new WaitForSeconds(_data.attackCooldown);
         IsOnCooldown = false;
         _cooldownCoroutine = null;
     }

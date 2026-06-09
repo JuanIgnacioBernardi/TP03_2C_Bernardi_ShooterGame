@@ -5,6 +5,11 @@ public class EnemyDataSO : ScriptableObject
     [Header("Identity")]
     public EnemyAttackType attackType;
 
+    [Header("Movement")]
+    public float attackRange = 5f;
+    public float moveSpeed = 3.5f;
+    public float attackCooldown = 3f;
+
     [Header("Detection")]
     public float detectionRange = 15f;
 
