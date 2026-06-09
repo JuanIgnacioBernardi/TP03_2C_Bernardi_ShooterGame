@@ -12,7 +12,6 @@ public class Pistol : WeaponBase
     [SerializeField] private Light muzzleLight;
 
     private Coroutine muzzleLightCoroutine;
-
     protected override void Awake()
     {
         base.Awake();

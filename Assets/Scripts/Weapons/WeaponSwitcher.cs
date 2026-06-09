@@ -1,12 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class WeaponSwitcher : MonoBehaviour
 {
     [SerializeField] private WeaponBase[] weapons;
-
     private int currentIndex = 0;
-
     private void Start()
     {
         EquipWeapon(currentIndex);

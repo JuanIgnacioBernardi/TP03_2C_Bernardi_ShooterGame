@@ -9,11 +9,11 @@ public class DroneController : MonoBehaviour
     [SerializeField] private Transform shootPoint;
 
     [Header("Flight")]
+    [SerializeField] private float flightHeight = 6f;
     [SerializeField] private float moveSpeed = 4f;
     [SerializeField] private float rotationSpeed = 3f;
     [SerializeField] private float bobAmplitude = 0.3f;
     [SerializeField] private float bobFrequency = 1f;
-    [SerializeField] private float groundCheckDistance = 2f;
     [SerializeField] private LayerMask groundMask;
 
     [Header("Patrol")]
@@ -49,7 +49,6 @@ public class DroneController : MonoBehaviour
     public void Initialize(Transform playerTransform)
     {
         player = playerTransform;
-        baseHeight = transform.position.y;
 
         if (laserRenderer != null)
         {
@@ -76,18 +75,17 @@ public class DroneController : MonoBehaviour
         bobTimer += Time.deltaTime * bobFrequency;
         float bobOffset = Mathf.Sin(bobTimer) * bobAmplitude;
         Vector3 pos = transform.position;
-        pos.y = baseHeight + bobOffset;
+        pos.y += bobOffset * Time.deltaTime;
         transform.position = pos;
     }
     // Raycasts down to detect ground and adjusts baseHeight
     private void AdjustHeightToGround()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit,
-            groundCheckDistance + baseHeight, groundMask))
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 100f, groundMask))
         {
-            float desiredY = hit.point.y + baseHeight;
-            if (transform.position.y < hit.point.y + 1f)
-                baseHeight = hit.point.y + (baseHeight - hit.point.y);
+            float targetY = hit.point.y + flightHeight;
+            float newY = Mathf.MoveTowards(transform.position.y, targetY, moveSpeed * Time.deltaTime);
+            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
         }
     }
     private float GetHorizontalDistance()
@@ -183,11 +181,15 @@ public class DroneController : MonoBehaviour
     }
     private void ShootAtPlayer()
     {
-        if (player == null || GameBootstrapper.Instance == null) return;
-        EnemyBullet bullet = GameBootstrapper.Instance.PoolManager.GetFromPool<EnemyBullet>();
-        if (bullet == null) return;
+        if (player == null) return;
+
         Vector3 direction = (player.position - shootPoint.position).normalized;
-        bullet.Spawn(shootPoint.position, direction);
+
+        if (Physics.Raycast(shootPoint.position, direction, out RaycastHit hit, data.distanceToShoot))
+        {
+            IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
+            target?.TakeDamage(data.shootingDamage);
+        }
     }
     private void MoveTowards(Vector3 target)
     {
@@ -209,24 +211,39 @@ public class DroneController : MonoBehaviour
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         if (laserRenderer != null) laserRenderer.enabled = false;
 
-        // Switch to physics for realistic fall
         rb.isKinematic = false;
         rb.useGravity = true;
-        rb.AddForce(Random.insideUnitSphere * 3f, ForceMode.Impulse);
-        rb.AddTorque(Random.insideUnitSphere * 5f, ForceMode.Impulse);
+        rb.linearDamping = 0.5f;
+        rb.angularDamping = 0.3f;
+        rb.AddForce(Random.insideUnitSphere * 2f, ForceMode.Impulse);
+        rb.AddTorque(Random.insideUnitSphere * 3f, ForceMode.Impulse);
+
+        // Free rotation on death for a more dynamic look
+        rb.constraints = RigidbodyConstraints.None;
 
         StartCoroutine(DeathRoutine());
     }
     private IEnumerator DeathRoutine()
     {
-        // Spawn explosion immediately on death
         if (explosionParticle != null)
         {
-            explosionParticle.transform.SetParent(null);
-            explosionParticle.Play();
+            ParticleSystem explosion = Instantiate(explosionParticle, transform.position, Quaternion.identity);
+            explosion.Play();
+            Destroy(explosion.gameObject, explosion.main.duration + 1f);
         }
-        // Wait for drone to hit the ground
-        yield return new WaitForSeconds(3f);
+        // Waits a moment before starting to fade out, allowing explosion to be visible
+        yield return new WaitForSeconds(2f);
+
+        // Fade out gradual — scale to zero in 1 second
+        float elapsed = 0f;
+        Vector3 originalScale = transform.localScale;
+        while (elapsed < 1f)
+        {
+            elapsed += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, elapsed);
+            yield return null;
+        }
+
         Destroy(gameObject);
     }
     private void OnDrawGizmosSelected()

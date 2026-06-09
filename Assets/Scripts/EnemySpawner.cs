@@ -1,7 +1,7 @@
 using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Referencias")]
+    [Header("References")]
     [SerializeField] private Transform playerTransform;
 
     [Header("Spawn Points")]
@@ -23,9 +23,7 @@ public class EnemySpawner : MonoBehaviour
     {
         foreach (Transform spawnPoint in laserEnemySpawnPoints)
         {
-            GameObject go = Instantiate(laserEnemyPrefab,
-                                        spawnPoint.position,
-                                        spawnPoint.rotation);
+            GameObject go = Instantiate(laserEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
             EnemyController controller = go.GetComponent<EnemyController>();
             controller.Initialize(playerTransform);
@@ -35,9 +33,7 @@ public class EnemySpawner : MonoBehaviour
     {
         foreach (Transform spawnPoint in grenadeEnemySpawnPoints)
         {
-            GameObject go = Instantiate(grenadeEnemyPrefab,
-                                        spawnPoint.position,
-                                        spawnPoint.rotation);
+            GameObject go = Instantiate(grenadeEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
             EnemyController controller = go.GetComponent<EnemyController>();
             controller.Initialize(playerTransform);
