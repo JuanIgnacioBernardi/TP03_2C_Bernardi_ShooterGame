@@ -86,7 +86,6 @@ MonoBehaviour:
   rotationSpeed: 3
   bobAmplitude: 0.3
   bobFrequency: 1
-  groundCheckDistance: 2
   groundMask:
     serializedVersion: 2
     m_Bits: 2147483648
@@ -552,15 +551,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 95abd0531dacb8d4e972c764d70a3ae0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 797487963921452786}
+      addedObject: {fileID: 1171364631379859790}
   m_SourcePrefab: {fileID: 100100000, guid: 95abd0531dacb8d4e972c764d70a3ae0, type: 3}
 --- !u!1 &7379376715658057186 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 95abd0531dacb8d4e972c764d70a3ae0, type: 3}
   m_PrefabInstance: {fileID: 7685878574780999859}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &797487963921452786
-BoxCollider:
+--- !u!136 &1171364631379859790
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -577,9 +576,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.12, y: 1.5, z: 1.75}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.8
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: -0.11}
 --- !u!4 &7864130108257603416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 95abd0531dacb8d4e972c764d70a3ae0, type: 3}
