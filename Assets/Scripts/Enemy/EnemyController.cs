@@ -55,9 +55,7 @@ public class EnemyController : MonoBehaviour
             s.Initialize(_anim, this);
 
         // Starts in roam or idle depending on if it can move
-        _currentState = canMove
-            ? FindState(StateTypeEnemy.Roam)
-            : FindState(StateTypeEnemy.Idle);
+        _currentState = canMove ? FindState(StateTypeEnemy.Roam) : FindState(StateTypeEnemy.Idle);
 
         _currentState.OnEnter();
     }

@@ -9,17 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df2bb797baee63428b097160e5eddeb, type: 3}
-  m_Name: Drone
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyDataSO
-  attackType: 1
-  attackRange: 12
-  moveSpeed: 5
-  attackCooldown: 2
+  m_Script: {fileID: 11500000, guid: 8f9b78e5b1246e34b8e8e00365414826, type: 3}
+  m_Name: DroneData
+  m_EditorClassIdentifier: Assembly-CSharp::DroneDataSO
   detectionRange: 20
+  attackRange: 12
   shootingDamage: 8
   shootingSpeed: 1.5
   distanceToShoot: 20
-  throwingDuration: 2
-  shootingHeight: 3
+  aimDuration: 1
+  flightHeight: 6
+  moveSpeed: 4
+  rotationSpeed: 3
+  bobAmplitude: 0.3
+  bobFrequency: 1
+  patrolRadius: 20
+  minPointDistance: 5
   maxHealth: 60
+  deathFallTime: 2
+  fadeTime: 1
