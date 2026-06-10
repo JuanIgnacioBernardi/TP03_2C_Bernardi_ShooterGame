@@ -29,6 +29,7 @@ public class EnemyController : MonoBehaviour
         Shoot = GetComponent<EnemyShoot>();
         _healthSystem = GetComponent<HealthSystem>();
         Agent = GetComponent<NavMeshAgent>();
+        Agent.enabled = canMove;
         SetupFSM();
     }
     private void OnEnable() => _healthSystem.onDie += OnDie_ChangeState;

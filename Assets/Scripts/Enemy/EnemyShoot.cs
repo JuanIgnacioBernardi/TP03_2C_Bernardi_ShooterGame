@@ -122,22 +122,46 @@ public class EnemyShoot : MonoBehaviour
     }
     private IEnumerator ThrowingRoutine(Transform startPos)
     {
+        Animator anim = _controller.GetAnim();
+
         while (_isShooting)
         {
-            yield return new WaitForSeconds(_controller.Data.shootingSpeed);
+            if (_controller.Player != null)
+                transform.LookAt(_controller.Player);
 
-            if (GameBootstrapper.Instance == null) yield break;
-            if (_controller.Player == null) yield break;
+            anim.SetInteger(HashState, (int)StateTypeEnemy.Throw);
 
-            EnemyBullet bullet = GameBootstrapper.Instance.PoolManager.GetFromPool<EnemyBullet>();
-            if (bullet == null) { Debug.LogWarning("[EnemyShoot] Pool de EnemyBullet agotada."); yield break; }
+            // Windup before throwing
+            yield return new WaitForSeconds(_controller.Data.shootingSpeed / 2f);
 
-            bullet.Activate();
-            bullet.transform.position = startPos.position;
+            if (GameBootstrapper.Instance != null && _controller.Player != null)
+            {
+                EnemyBullet bullet = GameBootstrapper.Instance.PoolManager.GetFromPool<EnemyBullet>();
+                if (bullet != null)
+                {
+                    bullet.Move(
+                        startPos.position,
+                        _controller.Player.position,
+                        _controller.Data.throwingDuration,
+                        _controller.Data.shootingHeight
+                    );
+                }
+                else
+                    Debug.LogWarning("[EnemyShoot] Pool de EnemyBullet agotada.");
+            }
 
-            Vector3 target = _controller.Player.position;
-            Vector3 direction = (_controller.Player.position - startPos.position).normalized;
-            bullet.Spawn(startPos.position, direction);
+            // Wait for the animation to finish
+            yield return new WaitForSeconds(0.5f);
+
+            // Back to idle visually
+            anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
+
+            // Cooldown before the next throw — does NOT break the loop
+            yield return new WaitForSeconds(_controller.Data.attackCooldown);
         }
+        // Only reaches here when AimAndShoot(false) is called externally
+        anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
+        _coroutineThrowing = null;
+        _controller.OnAttackCycleComplete();
     }
 }

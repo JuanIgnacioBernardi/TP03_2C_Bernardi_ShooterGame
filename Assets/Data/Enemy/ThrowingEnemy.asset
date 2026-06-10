@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: ThrowingEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataSO
   attackType: 2
-  detectionRange: 15
+  attackRange: 10
+  moveSpeed: 3.5
+  attackCooldown: 4
+  detectionRange: 12
   shootingDamage: 10
-  shootingSpeed: 2
+  shootingSpeed: 3
   distanceToShoot: 15
   throwingDuration: 2
-  shootingHeight: 3
+  shootingHeight: 4
   maxHealth: 100

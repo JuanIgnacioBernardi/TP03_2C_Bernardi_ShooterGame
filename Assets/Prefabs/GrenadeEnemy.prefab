@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 303359157491314552}
   - component: {fileID: 5010343799130090629}
-  - component: {fileID: 4043703632897479844}
+  - component: {fileID: 6825655937671521640}
   - component: {fileID: 1209724714477274735}
   - component: {fileID: 2847259630178410118}
   - component: {fileID: 1158281611187737213}
+  - component: {fileID: 4874123375157909916}
+  - component: {fileID: 3582000251284438347}
   m_Layer: 10
   m_Name: GrenadeEnemy
   m_TagString: Untagged
@@ -51,18 +53,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
   maxHealth: 100
   isInvulnerable: 0
---- !u!114 &4043703632897479844
-MonoBehaviour:
+--- !u!54 &6825655937671521640
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136929243906235557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4ad387c84d535e48bf512e0b6e4aa36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LaserEnemy
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!136 &1209724714477274735
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -98,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fabcdad5295c1d44b0086bc84a6ae8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShoot
-  _shootingPos: {fileID: 0}
-  _laserVisual: {fileID: 0}
+  _shootingPos: {fileID: 1643619986455956314}
+  _laserRenderer: {fileID: 0}
 --- !u!114 &1158281611187737213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,8 +129,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa475f5d37a6b07458bdd77764b72d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  _data: {fileID: 0}
-  _anim: {fileID: 0}
+  _data: {fileID: 11400000, guid: 6dffe95a49c589846975735ec95eaaaa, type: 2}
+  _anim: {fileID: 2979129375234501505}
+  canMove: 0
+--- !u!114 &4874123375157909916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136929243906235557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea682e9315ec674ca8f4d88e891498c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrenadeEnemy
+--- !u!195 &3582000251284438347
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136929243906235557}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!1 &5788511265767287184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1643619986455956314}
+  m_Layer: 10
+  m_Name: ThrowPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1643619986455956314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5788511265767287184}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3328374178066358182}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3328374178066482544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,12 +255,20 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: dac90dffb710eee4b9825779200b556d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 400086, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1643619986455956314}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100094, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2979129375234501505}
   m_SourcePrefab: {fileID: 100100000, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
+--- !u!4 &3328374178066358182 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400086, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
+  m_PrefabInstance: {fileID: 3328374178066482544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3328374178066358190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400094, guid: a55b75e1bbafd1241b488997bb65464c, type: 3}
@@ -198,7 +289,7 @@ Animator:
   m_GameObject: {fileID: 3328374178066580366}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c8d75e8f931e36e468547f3fee3a44b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 21f18ae76d2def14abf79ff1e6992c70, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

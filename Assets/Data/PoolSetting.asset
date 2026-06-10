@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdf78d5e1bc73245b6814c343500bbc, type: 3}
   m_Name: PoolSetting
   m_EditorClassIdentifier: Assembly-CSharp::PoolSettingSo
-  poolSettings: []
+  poolSettings:
+  - prefab: {fileID: 2089993210182428181, guid: ade408a71fe0c0c4f8a727b25a1c514c, type: 3}
+    quantity: 15
+  - prefab: {fileID: 1889459721431822051, guid: 985a183e8069b74458f27b1e8aa8add8, type: 3}
+    quantity: 5
