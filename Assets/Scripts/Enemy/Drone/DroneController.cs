@@ -7,6 +7,7 @@ public class DroneController : MonoBehaviour
     [Header("Data")]
     [SerializeField] private EnemyDataSO data;
     [SerializeField] private Transform shootPoint;
+    [SerializeField] private LayerMask hitMask;
 
     [Header("Flight")]
     [SerializeField] private float flightHeight = 6f;
@@ -182,10 +183,8 @@ public class DroneController : MonoBehaviour
     private void ShootAtPlayer()
     {
         if (player == null) return;
-
         Vector3 direction = (player.position - shootPoint.position).normalized;
-
-        if (Physics.Raycast(shootPoint.position, direction, out RaycastHit hit, data.distanceToShoot))
+        if (Physics.Raycast(shootPoint.position, direction, out RaycastHit hit, data.distanceToShoot, hitMask))
         {
             IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
             target?.TakeDamage(data.shootingDamage);
