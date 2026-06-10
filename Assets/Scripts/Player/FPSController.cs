@@ -72,15 +72,24 @@ public class FPSController : MonoBehaviour
     private void HandleMovement()
     {
         Keyboard kb = Keyboard.current;
-        float inputX = (kb.dKey.isPressed || kb.rightArrowKey.isPressed ? 1f : 0f) - (kb.aKey.isPressed || kb.leftArrowKey.isPressed ? 1f : 0f);
-        float inputZ = (kb.wKey.isPressed || kb.upArrowKey.isPressed ? 1f : 0f) - (kb.sKey.isPressed || kb.downArrowKey.isPressed ? 1f : 0f);
+        float inputX = (kb.dKey.isPressed || kb.rightArrowKey.isPressed ? 1f : 0f)
+                     - (kb.aKey.isPressed || kb.leftArrowKey.isPressed ? 1f : 0f);
+        float inputZ = (kb.wKey.isPressed || kb.upArrowKey.isPressed ? 1f : 0f)
+                     - (kb.sKey.isPressed || kb.downArrowKey.isPressed ? 1f : 0f);
 
         Vector3 inputDir = new Vector3(inputX, 0f, inputZ).normalized;
         isRunning = kb.leftShiftKey.isPressed && !isCrouching && isGrounded;
         float targetSpeed = isCrouching ? data.crouchSpeed : (isRunning ? data.runSpeed : data.walkSpeed);
 
         Vector3 targetVelocity = transform.TransformDirection(inputDir) * targetSpeed;
-        currentMoveVelocity = Vector3.Lerp(currentMoveVelocity, targetVelocity, Time.deltaTime * data.acceleration);
+
+        // Check next position before moving
+        Vector3 nextPos = transform.position + targetVelocity * Time.deltaTime;
+        if (!CanMoveToNextPosition(nextPos))
+            targetVelocity = Vector3.zero;
+
+        currentMoveVelocity = Vector3.Lerp(currentMoveVelocity, targetVelocity,
+                                            Time.deltaTime * data.acceleration);
         controller.Move(currentMoveVelocity * Time.deltaTime);
     }
     private void HandleJump()
@@ -92,6 +101,17 @@ public class FPSController : MonoBehaviour
     {
         velocity.y += data.gravity * Time.deltaTime;
         controller.Move(new Vector3(0f, velocity.y, 0f) * Time.deltaTime);
+    }
+    private bool CanMoveToNextPosition(Vector3 nextPos)
+    {
+        Vector3 rayOrigin = nextPos + Vector3.up * data.groundCheckOffset;
+        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit,
+            data.groundCheckOffset + 0.3f, groundMask))
+        {
+            float angle = Vector3.Angle(hit.normal, Vector3.up);
+            return angle <= controller.slopeLimit;
+        }
+        return true;
     }
     public bool IsGrounded => isGrounded;
     public bool IsCrouching => isCrouching;
