@@ -129,12 +129,20 @@ public class DroneController : MonoBehaviour
     private void ShootAtPlayer()
     {
         if (player == null) return;
-        Vector3 direction = (player.position - shootPoint.position).normalized;
-        if (Physics.Raycast(shootPoint.position, direction, out RaycastHit hit,
-            data.distanceToShoot, hitMask))
+
+        // aim to center
+        Vector3 targetPos = player.position + Vector3.up * 1f;
+        Vector3 origin = shootPoint.position;
+        Vector3 direction = (targetPos - origin).normalized;
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, data.distanceToShoot))
         {
-            hit.collider.GetComponentInParent<IDamageable>()?.TakeDamage(data.shootingDamage);
+            Debug.Log($"[Drone] Hit: {hit.collider.name} | Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
+            IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
+            target?.TakeDamage(data.shootingDamage);
         }
+        else
+            Debug.Log("[Drone] No hit");
     }
     private void OnDie()
     {
