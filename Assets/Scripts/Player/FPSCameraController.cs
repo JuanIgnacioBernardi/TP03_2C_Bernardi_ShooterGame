@@ -4,7 +4,10 @@ using UnityEngine.InputSystem;
 public class FPSCameraController : MonoBehaviour
 {
     [Header("Mouse sensitivity")]
+    [Range(0.01f, 1f)]
     [SerializeField] private float sensitivityX = 0.15f;
+
+    [Range(0.01f, 1f)]
     [SerializeField] private float sensitivityY = 0.15f;
 
     [Header("Camera smoothing")]
