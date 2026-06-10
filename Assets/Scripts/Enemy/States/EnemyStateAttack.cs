@@ -10,6 +10,12 @@ public class EnemyStateAttack : EnemyStates
     {
         _anim.SetInteger(HashState, (int)state);
 
+        // Stopping navmesh agent so it doesn't keep walking while attacking
+        if (_controller.Agent != null)
+        {
+            _controller.Agent.ResetPath();
+            _controller.Agent.isStopped = true;
+        }
         switch (_controller.AttackType)
         {
             case EnemyAttackType.AimAndShoot:
@@ -32,6 +38,11 @@ public class EnemyStateAttack : EnemyStates
     }
     public override void OnExit()
     {
+        if (_controller.Agent != null)
+            _controller.Agent.isStopped = false;
+
+        // Resets the Animator to the state that corresponds according to whether it can move or not
+        _anim.SetInteger(HashState, _controller.CanMove ? (int)StateTypeEnemy.Roam : (int)StateTypeEnemy.Idle);
         switch (_controller.AttackType)
         {
             case EnemyAttackType.AimAndShoot:

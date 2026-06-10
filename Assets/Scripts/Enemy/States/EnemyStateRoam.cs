@@ -24,6 +24,7 @@ public class EnemyStateRoam : EnemyStates
             _controller.SwitchState(_controller.FindState(StateTypeEnemy.Follow));
             return;
         }
+
         NavMeshAgent agent = _controller.Agent;
         if (isWaiting)
         {
@@ -35,7 +36,6 @@ public class EnemyStateRoam : EnemyStates
             }
             return;
         }
-        // Reached destination
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             isWaiting = true;
@@ -52,10 +52,12 @@ public class EnemyStateRoam : EnemyStates
         Vector3 randomDir = Random.insideUnitSphere * roamRadius;
         randomDir += _controller.transform.position;
 
-        if (UnityEngine.AI.NavMesh.SamplePosition(randomDir, out UnityEngine.AI.NavMeshHit hit, roamRadius, UnityEngine.AI.NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, roamRadius, NavMesh.AllAreas))
         {
             _controller.Agent.SetDestination(hit.position);
-            _anim.SetInteger(HashState, (int)StateTypeEnemy.Roam);
+            // Only set roam animation if the path is valid and has distance
+            if (_controller.Agent.remainingDistance > _controller.Agent.stoppingDistance)
+                _anim.SetInteger(HashState, (int)StateTypeEnemy.Roam);
         }
     }
 }

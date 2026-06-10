@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: AimingEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDataSO
   attackType: 1
+  attackRange: 4
+  moveSpeed: 3.5
+  attackCooldown: 3
   detectionRange: 15
   shootingDamage: 10
   shootingSpeed: 2
