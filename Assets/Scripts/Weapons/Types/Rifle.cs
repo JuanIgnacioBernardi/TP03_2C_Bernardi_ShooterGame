@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class Pistol : WeaponBase
+
+public class Rifle : WeaponBase
 {
     [Header("References")]
     [SerializeField] private Camera playerCamera;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private LayerMask hitMask;
+    [SerializeField] private HitShake hitShake;
 
     [Header("Muzzle")]
     [SerializeField] private ParticleSystem muzzleFlash;
@@ -18,7 +20,7 @@ public class Pistol : WeaponBase
     }
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.isPressed)
             TryShoot();
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
@@ -33,9 +35,11 @@ public class Pistol : WeaponBase
             audioSource.PlayOneShot(data.shootSound);
 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 1f);
 
         if (Physics.Raycast(ray, out RaycastHit hit, range, hitMask))
         {
+            hitShake?.Shake();
             SpawnImpact(hit);
             hit.collider.GetComponentInParent<IDamageable>()?.TakeDamage(damage);
         }
