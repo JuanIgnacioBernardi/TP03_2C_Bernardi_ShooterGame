@@ -3,28 +3,28 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyController))]
 public class EnemyShoot : MonoBehaviour
 {
-    [SerializeField] private Transform _shootingPos;
-    [SerializeField] private LineRenderer _laserRenderer;
-    public Transform ShootingPos => _shootingPos;
+    [SerializeField] private Transform shootingPos;
+    [SerializeField] private LineRenderer laserRenderer;
+    public Transform ShootingPos => shootingPos;
 
-    private EnemyController _controller;
-    private Coroutine _coroutineAiming;
-    private Coroutine _coroutineThrowing;
-    private bool _isShooting;
+    private EnemyController controller;
+    private Coroutine coroutineAiming;
+    private Coroutine coroutineThrowing;
+    private bool isShooting;
 
     private static readonly int HashState = Animator.StringToHash("State");
 
     private void Awake()
     {
-        _controller = GetComponent<EnemyController>();
+        controller = GetComponent<EnemyController>();
     }
     private void Start()
     {
-        if (_laserRenderer != null)
+        if (laserRenderer != null)
         {
-            _laserRenderer.startWidth = 0.03f;
-            _laserRenderer.endWidth = 0.03f;
-            _laserRenderer.positionCount = 2;
+            laserRenderer.startWidth = 0.03f;
+            laserRenderer.endWidth = 0.03f;
+            laserRenderer.positionCount = 2;
         }
     }
     private void OnDestroy() => StopAllCoroutines();
@@ -32,46 +32,46 @@ public class EnemyShoot : MonoBehaviour
     // ── Laser ───────────────────
     public void AimAndShoot(bool active)
     {
-        _isShooting = active;
+        isShooting = active;
 
-        if (_coroutineAiming != null)
+        if (coroutineAiming != null)
         {
-            StopCoroutine(_coroutineAiming);
-            _coroutineAiming = null;
+            StopCoroutine(coroutineAiming);
+            coroutineAiming = null;
         }
-        if (_laserRenderer != null) _laserRenderer.enabled = false;
+        if (laserRenderer != null) laserRenderer.enabled = false;
 
         if (active)
-            _coroutineAiming = StartCoroutine(AimingRoutine());
+            coroutineAiming = StartCoroutine(AimingRoutine());
     }
     private IEnumerator AimingRoutine()
     {
-        Animator anim = _controller.GetAnim();
+        Animator anim = controller.GetAnim();
 
         // Aim phase
         anim.SetInteger(HashState, (int)StateTypeEnemy.Aim);
-        if (_laserRenderer != null) _laserRenderer.enabled = true;
+        if (laserRenderer != null) laserRenderer.enabled = true;
 
         float clock = 0f;
-        float aimTime = _controller.Data.shootingSpeed / 2f;
+        float aimTime = controller.Data.shootingSpeed / 2f;
 
         while (clock < aimTime)
         {
             clock += Time.deltaTime;
-            if (_controller.Player != null)
+            if (controller.Player != null)
             {
-                transform.LookAt(_controller.Player);
-                if (_laserRenderer != null)
+                transform.LookAt(controller.Player);
+                if (laserRenderer != null)
                 {
-                    _laserRenderer.SetPosition(0, _shootingPos.position);
-                    _laserRenderer.SetPosition(1, _controller.Player.position + Vector3.up);
+                    laserRenderer.SetPosition(0, shootingPos.position);
+                    laserRenderer.SetPosition(1, controller.Player.position + Vector3.up);
                 }
             }
             yield return null;
         }
 
         // Shoot phase
-        if (_laserRenderer != null) _laserRenderer.enabled = false;
+        if (laserRenderer != null) laserRenderer.enabled = false;
         anim.SetInteger(HashState, (int)StateTypeEnemy.Attack);
         ShootRaycast();
 
@@ -80,28 +80,28 @@ public class EnemyShoot : MonoBehaviour
 
         // Back to idle — la FSM decide cuándo volver a atacar
         anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
-        _coroutineAiming = null;
+        coroutineAiming = null;
 
         // Notifica al controller que terminó el ciclo
-        _controller.OnAttackCycleComplete();
+        controller.OnAttackCycleComplete();
     }
     private void ShootRaycast()
     {
         Debug.Log("[EnemyShoot] ShootRaycast called");
-        if (_controller.Player == null) return;
+        if (controller.Player == null) return;
 
-        Vector3 targetPos = _controller.Player.position + Vector3.up * 1f; 
-        Vector3 direction = (targetPos - _shootingPos.position).normalized;
+        Vector3 targetPos = controller.Player.position + Vector3.up * 1f; 
+        Vector3 direction = (targetPos - shootingPos.position).normalized;
 
-        Debug.DrawRay(_shootingPos.position, direction * _controller.Data.distanceToShoot,
+        Debug.DrawRay(shootingPos.position, direction * controller.Data.distanceToShoot,
                       Color.red, 2f);
 
-        if (Physics.Raycast(_shootingPos.position, direction,
-            out RaycastHit hit, _controller.Data.distanceToShoot))
+        if (Physics.Raycast(shootingPos.position, direction,
+            out RaycastHit hit, controller.Data.distanceToShoot))
         {
             Debug.Log($"[EnemyShoot] Hit: {hit.collider.name}");
             IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
-            target?.TakeDamage(_controller.Data.shootingDamage);
+            target?.TakeDamage(controller.Data.shootingDamage);
         }
         else
             Debug.Log("[EnemyShoot] No hit");
@@ -109,59 +109,50 @@ public class EnemyShoot : MonoBehaviour
     // ── Grenade ────────────
     public void ThrowObject(bool active, Transform startPos)
     {
-        _isShooting = active;
+        isShooting = active;
 
-        if (_coroutineThrowing != null)
+        if (coroutineThrowing != null)
         {
-            StopCoroutine(_coroutineThrowing);
-            _coroutineThrowing = null;
+            StopCoroutine(coroutineThrowing);
+            coroutineThrowing = null;
         }
 
         if (active)
-            _coroutineThrowing = StartCoroutine(ThrowingRoutine(startPos));
+            coroutineThrowing = StartCoroutine(ThrowingRoutine(startPos));
+    }
+    public void ThrowGrenade()
+    {
+        if (!isShooting || controller.Player == null) return;
+
+        if (GameBootstrapper.Instance != null)
+        {
+            EnemyBullet bullet = GameBootstrapper.Instance.PoolManager.GetFromPool<EnemyBullet>();
+            if (bullet != null)
+                bullet.Move(shootingPos.position, controller.Player.position, controller.Data.throwingDuration, controller.Data.shootingHeight);
+            else
+                Debug.LogWarning("[EnemyShoot] Pool de EnemyBullet agotada.");
+        }
     }
     private IEnumerator ThrowingRoutine(Transform startPos)
     {
-        Animator anim = _controller.GetAnim();
+        Animator anim = controller.GetAnim();
 
-        while (_isShooting)
+        while (isShooting)
         {
-            if (_controller.Player != null)
-                transform.LookAt(_controller.Player);
+            if (controller.Player != null)
+                transform.LookAt(controller.Player);
 
             anim.SetInteger(HashState, (int)StateTypeEnemy.Throw);
 
-            // Windup before throwing
-            yield return new WaitForSeconds(_controller.Data.shootingSpeed / 2f);
+            // Waits until animation ends
+            yield return new WaitForSeconds(controller.Data.shootingSpeed);
 
-            if (GameBootstrapper.Instance != null && _controller.Player != null)
-            {
-                EnemyBullet bullet = GameBootstrapper.Instance.PoolManager.GetFromPool<EnemyBullet>();
-                if (bullet != null)
-                {
-                    bullet.Move(
-                        startPos.position,
-                        _controller.Player.position,
-                        _controller.Data.throwingDuration,
-                        _controller.Data.shootingHeight
-                    );
-                }
-                else
-                    Debug.LogWarning("[EnemyShoot] Pool de EnemyBullet agotada.");
-            }
-
-            // Wait for the animation to finish
-            yield return new WaitForSeconds(0.5f);
-
-            // Back to idle visually
             anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
 
-            // Cooldown before the next throw — does NOT break the loop
-            yield return new WaitForSeconds(_controller.Data.attackCooldown);
+            yield return new WaitForSeconds(controller.Data.attackCooldown);
         }
-        // Only reaches here when AimAndShoot(false) is called externally
         anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
-        _coroutineThrowing = null;
-        _controller.OnAttackCycleComplete();
+        coroutineThrowing = null;
+        controller.OnAttackCycleComplete();
     }
 }
