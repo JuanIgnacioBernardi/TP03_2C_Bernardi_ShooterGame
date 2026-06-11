@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fabcdad5295c1d44b0086bc84a6ae8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShoot
-  _shootingPos: {fileID: 1643619986455956314}
-  _laserRenderer: {fileID: 0}
+  shootingPos: {fileID: 1643619986455956314}
+  laserRenderer: {fileID: 0}
 --- !u!114 &1158281611187737213
 MonoBehaviour:
   m_ObjectHideFlags: 0
