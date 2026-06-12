@@ -184,6 +184,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 431c7b6a6c1d83844af83c2827df1bdf, type: 3}
+--- !u!1 &61395135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 61395136}
+  m_Layer: 0
+  m_Name: TurretEnemySP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &61395136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61395135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.71, y: -2.642, z: -10.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1378888836}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &71556005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2804,9 +2835,12 @@ MonoBehaviour:
   - {fileID: 957687829}
   droneSpawnPoints:
   - {fileID: 174491912}
+  turretSpawnPoints:
+  - {fileID: 61395136}
   laserEnemyPrefab: {fileID: 2136929243906235557, guid: 359baaa06dcc5314c868c5c18d70d239, type: 3}
   grenadeEnemyPrefab: {fileID: 2136929243906235557, guid: b8e89baf25c4851499855f03c6808ec7, type: 3}
   droneEnemyPrefab: {fileID: 3810703310577056830, guid: c61ae8e8e6f65bc40813c3ea9bc0c5e4, type: 3}
+  turretPrefab: {fileID: 2930253450842687603, guid: 450c80ff6ec93c54196c50b1a931917c, type: 3}
 --- !u!4 &1378888836
 Transform:
   m_ObjectHideFlags: 0
@@ -2822,6 +2856,7 @@ Transform:
   m_Children:
   - {fileID: 142722106}
   - {fileID: 957687829}
+  - {fileID: 61395136}
   - {fileID: 174491912}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
