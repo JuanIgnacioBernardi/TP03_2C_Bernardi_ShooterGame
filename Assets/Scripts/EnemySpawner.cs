@@ -8,16 +8,19 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform[] laserEnemySpawnPoints;
     [SerializeField] private Transform[] grenadeEnemySpawnPoints;
     [SerializeField] private Transform[] droneSpawnPoints;
+    [SerializeField] private Transform[] turretSpawnPoints;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject laserEnemyPrefab;
     [SerializeField] private GameObject grenadeEnemyPrefab;
     [SerializeField] private GameObject droneEnemyPrefab;
+    [SerializeField] private GameObject turretPrefab;
     private void Start()
     {
         SpawnLaserEnemies();
         SpawnGrenadeEnemies();
         SpawnDrones();
+        SpawnTurrets();
     }
     private void SpawnLaserEnemies()
     {
@@ -46,6 +49,15 @@ public class EnemySpawner : MonoBehaviour
         {
             GameObject go = Instantiate(droneEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
             go.GetComponent<DroneController>()?.Initialize(playerTransform);
+        }
+    }
+    private void SpawnTurrets()
+    {
+        if (turretPrefab == null) return;
+        foreach (Transform spawnPoint in turretSpawnPoints)
+        {
+            GameObject go = Instantiate(turretPrefab, spawnPoint.position, spawnPoint.rotation);
+            go.GetComponent<TurretController>()?.Initialize(playerTransform);
         }
     }
 }
