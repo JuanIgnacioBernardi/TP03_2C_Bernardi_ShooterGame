@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7038538021439106344
 Transform:
@@ -107,7 +107,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2307699273463831655
 Transform:
@@ -198,7 +198,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7284657314162685512
 Transform:
@@ -283,13 +283,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4144939046933883186}
   - component: {fileID: 7250050877548821893}
-  - component: {fileID: 468547170101422291}
+  - component: {fileID: 2737240826279841500}
   m_Layer: 0
   m_Name: URP_Tree_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4144939046933883186
 Transform:
@@ -341,8 +341,8 @@ LODGroup:
     renderers:
     - renderer: {fileID: 7457692230273316472}
   m_Enabled: 1
---- !u!65 &468547170101422291
-BoxCollider:
+--- !u!136 &2737240826279841500
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -359,9 +359,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.52, y: 2.04, z: 0.56}
-  m_Center: {x: 0, y: 1.01, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.22
+  m_Height: 3.38
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.62, z: 0}
 --- !u!1 &7271073098528902193
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +380,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8272378013287771663
 Transform:

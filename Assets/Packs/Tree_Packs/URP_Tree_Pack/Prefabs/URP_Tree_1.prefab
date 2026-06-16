@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6744884194787191862}
   - component: {fileID: 3734529646151074635}
-  - component: {fileID: 1123210804996721714}
+  - component: {fileID: 2128109609618844556}
   m_Layer: 0
   m_Name: URP_Tree_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6744884194787191862
 Transform:
@@ -68,8 +68,8 @@ LODGroup:
     renderers:
     - renderer: {fileID: 8851052174935355301}
   m_Enabled: 1
---- !u!65 &1123210804996721714
-BoxCollider:
+--- !u!136 &2128109609618844556
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -86,9 +86,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.59, y: 1.69, z: 1}
-  m_Center: {x: 0, y: 0.97, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.22
+  m_Height: 3.38
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.62, z: 0}
 --- !u!1 &3393009937179818794
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +107,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6089109625557160416
 Transform:
@@ -196,7 +198,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7708895676236772233
 Transform:
@@ -287,7 +289,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &673725117269059581
 Transform:
@@ -378,7 +380,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7745176723217097036
 Transform:
