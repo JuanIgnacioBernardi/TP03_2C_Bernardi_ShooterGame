@@ -49,15 +49,20 @@ public class EnemyStateRoam : EnemyStates
     }
     private void SetNewDestination()
     {
-        Vector3 randomDir = Random.insideUnitSphere * roamRadius;
-        randomDir += _controller.transform.position;
-
-        if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, roamRadius, NavMesh.AllAreas))
+        for (int i = 0; i < 5; i++)
         {
-            _controller.Agent.SetDestination(hit.position);
-            // Only set roam animation if the path is valid and has distance
-            if (_controller.Agent.remainingDistance > _controller.Agent.stoppingDistance)
+            Vector3 randomDir = Random.insideUnitSphere * roamRadius;
+            randomDir += _controller.transform.position;
+
+            if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, roamRadius, NavMesh.AllAreas))
+            {
+                _controller.Agent.SetDestination(hit.position);
                 _anim.SetInteger(HashState, (int)StateTypeEnemy.Roam);
+                return;
+            }
         }
+        // If no valid point found after 5 tries, just wait and try again later
+        isWaiting = true;
+        waitTimer = waitTime;
     }
 }

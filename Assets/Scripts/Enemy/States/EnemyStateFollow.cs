@@ -30,6 +30,9 @@ public class EnemyStateFollow : EnemyStates
         }
         // Follow player
         _controller.Agent.SetDestination(_controller.Player.position);
+
+        float speed = _controller.Agent.velocity.magnitude;
+        _anim.SetInteger(HashState, speed > 0.1f ? (int)StateTypeEnemy.Follow : (int)StateTypeEnemy.Idle);
     }
     public override void OnExit()
     {
