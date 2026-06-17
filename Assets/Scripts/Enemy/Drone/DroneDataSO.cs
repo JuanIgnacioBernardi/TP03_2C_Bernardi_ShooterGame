@@ -14,6 +14,7 @@ public class DroneDataSO : ScriptableObject
 
     [Header("Flight")]
     public float flightHeight = 6f;
+    public float combatFlightHeight = 3f;
     public float moveSpeed = 4f;
     public float rotationSpeed = 3f;
     public float bobAmplitude = 0.3f;

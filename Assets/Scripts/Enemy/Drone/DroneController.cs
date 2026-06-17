@@ -34,6 +34,8 @@ public class DroneController : MonoBehaviour
     public void Initialize(Transform playerTransform)
     {
         player = playerTransform;
+        movement.InitializeSpawnPoint(transform.position);
+
         if (laserRenderer != null)
         {
             laserRenderer.startWidth = 0.03f;
@@ -45,13 +47,21 @@ public class DroneController : MonoBehaviour
     private void Update()
     {
         if (isDead) return;
-        movement.ApplyHoverBob();
-        movement.AdjustHeightToGround();
+
         switch (state)
         {
-            case DroneState.Patrol: UpdatePatrol(); break;
-            case DroneState.Follow: UpdateFollow(); break;
-            case DroneState.Attack: UpdateAttack(); break;
+            case DroneState.Patrol:
+                movement.UpdateHeight();
+                UpdatePatrol();
+                break;
+            case DroneState.Follow:
+                movement.UpdateHeightCombat(); // lowers as it approaches
+                UpdateFollow();
+                break;
+            case DroneState.Attack:
+                movement.UpdateHeightCombat(); // keeps low for shooting
+                UpdateAttack();
+                break;
         }
     }
     private void UpdatePatrol()
@@ -61,8 +71,11 @@ public class DroneController : MonoBehaviour
             state = DroneState.Follow;
             return;
         }
+
+        // Always patroll to the next target, if reached, get a new one
         if (!movement.HasPatrolTarget || movement.HasReachedTarget(movement.CurrentPatrolTarget))
             movement.SetNewPatrolTarget();
+
         movement.MoveTowards(movement.CurrentPatrolTarget);
     }
     private void UpdateFollow()
@@ -114,35 +127,50 @@ public class DroneController : MonoBehaviour
     {
         if (laserRenderer != null) laserRenderer.enabled = true;
         float elapsed = 0f;
+
         while (elapsed < data.aimDuration)
         {
             elapsed += Time.deltaTime;
+
             if (player != null && laserRenderer != null)
             {
-                laserRenderer.SetPosition(0, shootPoint.position);
-                laserRenderer.SetPosition(1, player.position);
+                Vector3 origin = shootPoint.position;
+                Vector3 targetPos = player.position + Vector3.up * 1f;
+                Vector3 direction = (targetPos - origin).normalized;
+
+                // Laser cut off at obstacles
+                if (Physics.Raycast(origin, direction, out RaycastHit hit, data.distanceToShoot))
+                {
+                    laserRenderer.SetPosition(0, origin);
+                    laserRenderer.SetPosition(1, hit.point);
+                }
+                else
+                {
+                    laserRenderer.SetPosition(0, origin);
+                    laserRenderer.SetPosition(1, targetPos);
+                }
             }
             yield return null;
         }
+
         if (laserRenderer != null) laserRenderer.enabled = false;
     }
     private void ShootAtPlayer()
     {
         if (player == null) return;
 
-        // aim to center
         Vector3 targetPos = player.position + Vector3.up * 1f;
         Vector3 origin = shootPoint.position;
         Vector3 direction = (targetPos - origin).normalized;
 
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, data.distanceToShoot))
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, data.distanceToShoot, hitMask))
         {
-            Debug.Log($"[Drone] Hit: {hit.collider.name} | Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
+            Debug.Log($"[Drone] Hit: {hit.collider.name}");
             IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
             target?.TakeDamage(data.shootingDamage);
         }
         else
-            Debug.Log("[Drone] No hit");
+            Debug.Log("[Drone] No hit — blocked or out of range");
     }
     private void OnDie()
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("References")]
@@ -22,24 +23,31 @@ public class EnemySpawner : MonoBehaviour
         SpawnDrones();
         SpawnTurrets();
     }
+    // Find a valid position on the NavMesh near the given origin. If none found, returns the original position.
+    private Vector3 GetNavMeshPosition(Vector3 origin, float searchRadius = 5f)
+    {
+        if (NavMesh.SamplePosition(origin, out NavMeshHit hit, searchRadius, NavMesh.AllAreas))
+            return hit.position;
+
+        Debug.LogWarning($"[EnemySpawner] No NavMesh encontrado cerca de {origin}. Usando posición original.");
+        return origin;
+    }
     private void SpawnLaserEnemies()
     {
         foreach (Transform spawnPoint in laserEnemySpawnPoints)
         {
-            GameObject go = Instantiate(laserEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
-
-            EnemyController controller = go.GetComponent<EnemyController>();
-            controller.Initialize(playerTransform);
+            Vector3 pos = GetNavMeshPosition(spawnPoint.position);
+            GameObject go = Instantiate(laserEnemyPrefab, pos, spawnPoint.rotation);
+            go.GetComponent<EnemyController>()?.Initialize(playerTransform);
         }
     }
     private void SpawnGrenadeEnemies()
     {
         foreach (Transform spawnPoint in grenadeEnemySpawnPoints)
         {
-            GameObject go = Instantiate(grenadeEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
-
-            EnemyController controller = go.GetComponent<EnemyController>();
-            controller.Initialize(playerTransform);
+            Vector3 pos = GetNavMeshPosition(spawnPoint.position);
+            GameObject go = Instantiate(grenadeEnemyPrefab, pos, spawnPoint.rotation);
+            go.GetComponent<EnemyController>()?.Initialize(playerTransform);
         }
     }
     private void SpawnDrones()

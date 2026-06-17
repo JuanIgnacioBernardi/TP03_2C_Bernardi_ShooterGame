@@ -18,7 +18,8 @@ MonoBehaviour:
   shootingSpeed: 1.5
   distanceToShoot: 20
   aimDuration: 1
-  flightHeight: 6
+  flightHeight: 12
+  combatFlightHeight: 3
   moveSpeed: 4
   rotationSpeed: 3
   bobAmplitude: 0.3

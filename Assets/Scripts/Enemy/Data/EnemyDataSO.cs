@@ -9,6 +9,7 @@ public class EnemyDataSO : ScriptableObject
     public float attackRange = 5f;
     public float moveSpeed = 3.5f;
     public float attackCooldown = 3f;
+    public float patrolRadius = 10f;
 
     [Header("Detection")]
     public float detectionRange = 15f;

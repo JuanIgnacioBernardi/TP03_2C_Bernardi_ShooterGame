@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 [RequireComponent(typeof(EnemyController))]
 public class EnemyShoot : MonoBehaviour
 {
@@ -135,24 +136,18 @@ public class EnemyShoot : MonoBehaviour
     }
     private IEnumerator ThrowingRoutine(Transform startPos)
     {
-        Animator anim = controller.GetAnim();
-
         while (isShooting)
         {
             if (controller.Player != null)
                 transform.LookAt(controller.Player);
 
-            anim.SetInteger(HashState, (int)StateTypeEnemy.Throw);
-
-            // Waits until animation ends
             yield return new WaitForSeconds(controller.Data.shootingSpeed);
 
-            anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
+            if (!isShooting) break;
 
             yield return new WaitForSeconds(controller.Data.attackCooldown);
         }
-        anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
+
         coroutineThrowing = null;
-        controller.OnAttackCycleComplete();
     }
 }

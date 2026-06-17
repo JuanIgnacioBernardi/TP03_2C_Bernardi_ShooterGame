@@ -130,7 +130,7 @@ MonoBehaviour:
   explosionParticle: {fileID: 19800004, guid: b46890100828db6429ff69c322b45893, type: 3}
   hitMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1073742080
 --- !u!114 &4172649260116258164
 MonoBehaviour:
   m_ObjectHideFlags: 0

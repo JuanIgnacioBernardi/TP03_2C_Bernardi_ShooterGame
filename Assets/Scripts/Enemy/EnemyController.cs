@@ -86,7 +86,6 @@ public class EnemyController : MonoBehaviour
     public void OnAttackCycleComplete()
     {
         IsOnCooldown = true;
-        SwitchState(FindState(canMove ? StateTypeEnemy.Roam : StateTypeEnemy.Idle));
         if (_cooldownCoroutine != null) StopCoroutine(_cooldownCoroutine);
         _cooldownCoroutine = StartCoroutine(AttackCooldown());
     }

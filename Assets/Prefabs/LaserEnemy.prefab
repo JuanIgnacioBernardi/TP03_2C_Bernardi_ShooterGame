@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 303359157491314552}
   - component: {fileID: 5010343799130090629}
-  - component: {fileID: 4043703632897479844}
   - component: {fileID: 6574719524437916188}
   - component: {fileID: 1209724714477274735}
+  - component: {fileID: 4043703632897479844}
   - component: {fileID: 2847259630178410118}
   - component: {fileID: 1158281611187737213}
   - component: {fileID: 2115941574651319523}
@@ -54,18 +54,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
   maxHealth: 100
   isInvulnerable: 0
---- !u!114 &4043703632897479844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2136929243906235557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4ad387c84d535e48bf512e0b6e4aa36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LaserEnemy
 --- !u!54 &6574719524437916188
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -116,6 +104,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.41, z: 0}
+--- !u!114 &4043703632897479844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136929243906235557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ad387c84d535e48bf512e0b6e4aa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LaserEnemy
 --- !u!114 &2847259630178410118
 MonoBehaviour:
   m_ObjectHideFlags: 0

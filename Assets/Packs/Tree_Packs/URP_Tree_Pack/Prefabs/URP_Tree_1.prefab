@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6744884194787191862}
   - component: {fileID: 3734529646151074635}
   - component: {fileID: 2128109609618844556}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: URP_Tree_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 6089109625557160416}
   - component: {fileID: 8723810872924858279}
   - component: {fileID: 8851052174935355301}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: URP_Tree_1_LOD_3(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 7708895676236772233}
   - component: {fileID: 7955146586700794326}
   - component: {fileID: 1567824217272766875}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: URP_Tree_1_LOD_0(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 673725117269059581}
   - component: {fileID: 1005120585615419973}
   - component: {fileID: 2557456374141327832}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: URP_Tree_1_LOD_2(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 7745176723217097036}
   - component: {fileID: 818351159940310204}
   - component: {fileID: 4978964514928131318}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: URP_Tree_1_LOD_1(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
