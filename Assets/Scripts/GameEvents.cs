@@ -8,4 +8,6 @@ public static class GameEvents
 
     public static event System.Action onDeath;
     public static void RaiseDeath() => onDeath?.Invoke();
+    public static event System.Action<CampController> onCampCleared;
+    public static void RaiseCampCleared(CampController camp) => onCampCleared?.Invoke(camp);
 }

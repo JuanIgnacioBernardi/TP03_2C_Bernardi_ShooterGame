@@ -29,6 +29,7 @@ public class CampController : MonoBehaviour
         {
             Debug.Log($"[Camp] {gameObject.name} COMPLETADO");
             onCampCleared?.Invoke(this);
+            GameEvents.RaiseCampCleared(this);
         }
     }
 }
