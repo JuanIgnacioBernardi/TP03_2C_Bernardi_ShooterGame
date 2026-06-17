@@ -40,6 +40,12 @@ public class HealthSystem : MonoBehaviour, IDamageable
             onLifeChanged?.Invoke(currentHealth, maxHealth);
         }
     }
+    public void Heal(float amount)
+    {
+        if (amount <= 0 || currentHealth >= maxHealth) return;
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+        onLifeChanged?.Invoke(currentHealth, maxHealth);
+    }
     public void ResetHealth()
     {
         currentHealth = maxHealth;

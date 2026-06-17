@@ -165,12 +165,9 @@ public class DroneController : MonoBehaviour
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, data.distanceToShoot, hitMask))
         {
-            Debug.Log($"[Drone] Hit: {hit.collider.name}");
             IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
             target?.TakeDamage(data.shootingDamage);
         }
-        else
-            Debug.Log("[Drone] No hit — blocked or out of range");
     }
     private void OnDie()
     {

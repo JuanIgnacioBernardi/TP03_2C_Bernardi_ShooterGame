@@ -8,6 +8,12 @@ public class EnemyStateAttack : EnemyStates
     }
     public override void OnEnter()
     {
+        if (_controller.Agent != null && _controller.Agent.enabled && _controller.Agent.isOnNavMesh)
+        {
+            _controller.Agent.ResetPath();
+            _controller.Agent.isStopped = true;
+        }
+
         switch (_controller.AttackType)
         {
             case EnemyAttackType.AimAndShoot:
@@ -15,19 +21,11 @@ public class EnemyStateAttack : EnemyStates
                 _controller.Shoot.AimAndShoot(true);
                 break;
             case EnemyAttackType.ThrowObject:
-                _anim.SetInteger(HashState, (int)StateTypeEnemy.Throw);
                 _controller.Shoot.ThrowObject(true, _controller.Shoot.ShootingPos);
                 break;
             default:
-                Debug.LogError("[EnemyStateAttack] AttackType no asignado.");
                 _controller.SwitchState(_controller.FindState(StateTypeEnemy.Idle));
                 break;
-        }
-
-        if (_controller.Agent != null && _controller.Agent.enabled && _controller.Agent.isOnNavMesh)
-        {
-            _controller.Agent.ResetPath();
-            _controller.Agent.isStopped = true;
         }
     }
     public override void OnUpdate()

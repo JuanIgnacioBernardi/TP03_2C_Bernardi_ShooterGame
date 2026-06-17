@@ -6,6 +6,11 @@ public class HUDController : MonoBehaviour
     [Header("Damage Feedback")]
     [SerializeField] private DamageScreen damageScreen;
 
+    [Header("Health Kit")]
+    [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private GameObject kitIcon;
+    [SerializeField] private TMP_Text kitCountText;
+
     [Header("Ammo")]
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private TMP_Text weaponNameText;
@@ -21,18 +26,21 @@ public class HUDController : MonoBehaviour
     private int _score;
     private void OnEnable()
     {
+        playerInventory.onKitCountChanged += UpdateKitHUD;
         playerHealth.onLifeChanged += UpdateHealth;
         playerHealth.onDie += OnPlayerDie;
         playerHealth.OnDamaged += OnPlayerDamaged;
     }
     private void OnDisable()
     {
+        playerInventory.onKitCountChanged -= UpdateKitHUD;
         playerHealth.onLifeChanged -= UpdateHealth;
         playerHealth.onDie -= OnPlayerDie;
         playerHealth.OnDamaged -= OnPlayerDamaged;
     }
     private void Start()
     {
+        UpdateKitHUD(0);
         UpdateScore(0);
     }
     private void Update()
@@ -42,6 +50,11 @@ public class HUDController : MonoBehaviour
     private void OnPlayerDamaged()
     {
         damageScreen?.ShowDamage();
+    }
+    private void UpdateKitHUD(int count)
+    {
+        kitIcon.SetActive(count > 0);
+        kitCountText.text = count > 0 ? $"x{count}" : "";
     }
     private void UpdateWeaponHUD()
     {

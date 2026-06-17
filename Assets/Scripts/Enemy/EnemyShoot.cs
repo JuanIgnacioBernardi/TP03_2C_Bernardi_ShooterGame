@@ -136,18 +136,23 @@ public class EnemyShoot : MonoBehaviour
     }
     private IEnumerator ThrowingRoutine(Transform startPos)
     {
+        Animator anim = controller.GetAnim();
+
         while (isShooting)
         {
             if (controller.Player != null)
                 transform.LookAt(controller.Player);
 
+            anim.SetInteger(HashState, (int)StateTypeEnemy.Throw);
+
+            // Event triggers ThrowGrenade()
             yield return new WaitForSeconds(controller.Data.shootingSpeed);
 
-            if (!isShooting) break;
-
+            anim.SetInteger(HashState, (int)StateTypeEnemy.Idle);
             yield return new WaitForSeconds(controller.Data.attackCooldown);
         }
 
+        controller.GetAnim().SetInteger(HashState, (int)StateTypeEnemy.Idle);
         coroutineThrowing = null;
     }
 }
