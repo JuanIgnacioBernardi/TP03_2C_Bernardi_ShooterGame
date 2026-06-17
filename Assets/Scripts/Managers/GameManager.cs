@@ -8,10 +8,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HealthSystem playerHealth;
     [SerializeField] private Transform playerTransform;
 
-    [Header("UI")]
-    [SerializeField] private GameObject winScreen;
-    [SerializeField] private GameObject deathScreen;
-
     private int clearedCamps;
     private void Start()
     {
@@ -21,9 +17,6 @@ public class GameManager : MonoBehaviour
             camp.Initialize(playerTransform);
         }
         playerHealth.onDie += OnPlayerDied;
-
-        winScreen.SetActive(false);
-        deathScreen.SetActive(false);
     }
     private void OnDestroy()
     {
@@ -43,18 +36,8 @@ public class GameManager : MonoBehaviour
         if (clearedCamps >= camps.Length)
         {
             Debug.Log("[GameManager] VICTORIA");
-            ShowWinScreen();
+            GameEvents.RaiseWin();
         }
     }
-    private void OnPlayerDied() => ShowDeathScreen();
-    private void ShowWinScreen()
-    {
-        winScreen.SetActive(true);
-        Time.timeScale = 0f;
-    }
-    private void ShowDeathScreen()
-    {
-        deathScreen.SetActive(true);
-        Time.timeScale = 0f;
-    }
+    private void OnPlayerDied() => GameEvents.RaiseDeath();
 }

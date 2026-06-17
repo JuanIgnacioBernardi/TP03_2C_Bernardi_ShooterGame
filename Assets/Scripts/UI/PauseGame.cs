@@ -44,9 +44,19 @@ public class PauseGame : MonoBehaviour
             Keyboard.current.pKey.wasPressedThisFrame)
         {
             if (isPaused)
+            {
+                // if settings menu is open, close it first before resuming the game
+                if (settingsMenu.activeSelf)
+                {
+                    OnSettingsBack();
+                    return;
+                }
                 ResumeGame();
+            }
             else
+            {
                 OnPauseClicked();
+            }
         }
     }
     private void ResumeGame()

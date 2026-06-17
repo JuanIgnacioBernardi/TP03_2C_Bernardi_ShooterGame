@@ -15,6 +15,7 @@ public abstract class WeaponBase : MonoBehaviour
     protected bool isReloading;
     private bool isPaused;
     private float nextFireTime;
+    protected bool IsPaused => isPaused;
     private void OnEnable() => GameEvents.onPauseChanged += OnPauseChanged;
     private void OnDisable() => GameEvents.onPauseChanged -= OnPauseChanged;
     private void OnPauseChanged(bool paused) => isPaused = paused;

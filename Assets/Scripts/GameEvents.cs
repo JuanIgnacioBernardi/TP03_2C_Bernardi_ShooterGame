@@ -2,4 +2,10 @@ public static class GameEvents
 {
     public static event System.Action<bool> onPauseChanged;
     public static void RaisePauseChanged(bool isPaused) => onPauseChanged?.Invoke(isPaused);
+
+    public static event System.Action onWin;
+    public static void RaiseWin() => onWin?.Invoke();
+
+    public static event System.Action onDeath;
+    public static void RaiseDeath() => onDeath?.Invoke();
 }
