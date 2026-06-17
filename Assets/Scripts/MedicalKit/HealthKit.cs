@@ -7,7 +7,6 @@ public class HealthKit : MonoBehaviour
     [SerializeField] private Transform playerTransform;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip pickupSound;
 
     [Header("World UI")]
@@ -53,8 +52,8 @@ public class HealthKit : MonoBehaviour
         if (medicalText != null)
             medicalText.gameObject.SetActive(false);
 
-        if (audioSource != null && pickupSound != null)
-            audioSource.PlayOneShot(pickupSound);
+        if (pickupSound != null)
+            AudioEvents.RaisePlaySFX(pickupSound);
 
         PlayerInventory inventory = playerTransform.GetComponent<PlayerInventory>();
         inventory?.AddHealthKit();

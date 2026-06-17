@@ -8,7 +8,6 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private HealthKitDataSO data;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip healSound;
 
     private HealthSystem healthSystem;
@@ -45,7 +44,7 @@ public class PlayerInventory : MonoBehaviour
     private IEnumerator HealRoutine()
     {
         isHealing = true;
-        audioSource?.PlayOneShot(healSound);
+        AudioEvents.RaisePlaySFX(healSound);
         float elapsed = 0f;
 
         while (elapsed < data.healDuration)

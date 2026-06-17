@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 1398762747429093713}
   - component: {fileID: 4172649260116258164}
   - component: {fileID: 679724718723768365}
+  - component: {fileID: 4046875552960286487}
   m_Layer: 10
   m_Name: Drone
   m_TagString: Untagged
@@ -91,11 +92,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &7485124716004653103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +113,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 2147483648
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1073741824
 --- !u!114 &1398762747429093713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroneController
   data: {fileID: 11400000, guid: 744e14ef787819c449ad5559f398db76, type: 2}
+  attackSound: {fileID: 8300000, guid: 2dc135c2fc0525947ad5d6f4d5971203, type: 3}
+  deathSound: {fileID: 8300000, guid: 9cac7bef5f64c064e9da7c4f2770f0bc, type: 3}
   shootPoint: {fileID: 6172959483810253465}
   laserRenderer: {fileID: 679724718723768365}
   explosionParticle: {fileID: 19800004, guid: b46890100828db6429ff69c322b45893, type: 3}
@@ -255,6 +261,29 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!136 &4046875552960286487
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3810703310577056830}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: -0.11}
 --- !u!1001 &7685878574780999859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -558,39 +587,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 95abd0531dacb8d4e972c764d70a3ae0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1171364631379859790}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95abd0531dacb8d4e972c764d70a3ae0, type: 3}
---- !u!1 &7379376715658057186 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 95abd0531dacb8d4e972c764d70a3ae0, type: 3}
-  m_PrefabInstance: {fileID: 7685878574780999859}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &1171364631379859790
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7379376715658057186}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.8
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: -0.11}
 --- !u!4 &7864130108257603416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 95abd0531dacb8d4e972c764d70a3ae0, type: 3}

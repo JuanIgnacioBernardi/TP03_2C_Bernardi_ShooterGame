@@ -13,7 +13,11 @@ public abstract class WeaponBase : MonoBehaviour
 
     protected int currentAmmo;
     protected bool isReloading;
+    private bool isPaused;
     private float nextFireTime;
+    private void OnEnable() => GameEvents.onPauseChanged += OnPauseChanged;
+    private void OnDisable() => GameEvents.onPauseChanged -= OnPauseChanged;
+    private void OnPauseChanged(bool paused) => isPaused = paused;
     protected virtual void Awake()
     {
         if (data != null)
@@ -28,14 +32,14 @@ public abstract class WeaponBase : MonoBehaviour
     }
     public void TryShoot()
     {
-        if (isReloading || currentAmmo <= 0 || Time.time < nextFireTime) return;
+        if (isPaused || isReloading || currentAmmo <= 0 || Time.time < nextFireTime) return;
         nextFireTime = Time.time + 1f / fireRate;
         currentAmmo--;
         Shoot();
     }
     public void TryReload()
     {
-        if (isReloading || currentAmmo == magazineSize) return;
+        if (isPaused || isReloading || currentAmmo == magazineSize) return;
         StartCoroutine(ReloadRoutine());
     }
     protected abstract void Shoot();

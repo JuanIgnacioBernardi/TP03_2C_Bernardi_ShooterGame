@@ -16,13 +16,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject grenadeEnemyPrefab;
     [SerializeField] private GameObject droneEnemyPrefab;
     [SerializeField] private GameObject turretPrefab;
-    private void Start()
-    {
-        SpawnLaserEnemies();
-        SpawnGrenadeEnemies();
-        SpawnDrones();
-        SpawnTurrets();
-    }
     // Find a valid position on the NavMesh near the given origin. If none found, returns the original position.
     private Vector3 GetNavMeshPosition(Vector3 origin, float searchRadius = 5f)
     {
@@ -32,40 +25,39 @@ public class EnemySpawner : MonoBehaviour
         Debug.LogWarning($"[EnemySpawner] No NavMesh encontrado cerca de {origin}. Usando posición original.");
         return origin;
     }
-    private void SpawnLaserEnemies()
+    public void SpawnEnemies(Transform player, CampController camp)
     {
-        foreach (Transform spawnPoint in laserEnemySpawnPoints)
+        foreach (Transform sp in laserEnemySpawnPoints)
         {
-            Vector3 pos = GetNavMeshPosition(spawnPoint.position);
-            GameObject go = Instantiate(laserEnemyPrefab, pos, spawnPoint.rotation);
-            go.GetComponent<EnemyController>()?.Initialize(playerTransform);
+            Vector3 pos = GetNavMeshPosition(sp.position);
+            GameObject go = Instantiate(laserEnemyPrefab, pos, sp.rotation);
+            go.transform.SetParent(transform);
+            go.GetComponent<EnemyController>()?.Initialize(player);
+            camp.RegisterEnemy(go.GetComponent<HealthSystem>());
         }
-    }
-    private void SpawnGrenadeEnemies()
-    {
-        foreach (Transform spawnPoint in grenadeEnemySpawnPoints)
+        foreach (Transform sp in grenadeEnemySpawnPoints)
         {
-            Vector3 pos = GetNavMeshPosition(spawnPoint.position);
-            GameObject go = Instantiate(grenadeEnemyPrefab, pos, spawnPoint.rotation);
-            go.GetComponent<EnemyController>()?.Initialize(playerTransform);
+            Vector3 pos = GetNavMeshPosition(sp.position);
+            GameObject go = Instantiate(grenadeEnemyPrefab, pos, sp.rotation);
+            go.transform.SetParent(transform);
+            go.GetComponent<EnemyController>()?.Initialize(player);
+            camp.RegisterEnemy(go.GetComponent<HealthSystem>());
         }
-    }
-    private void SpawnDrones()
-    {
-        if (droneEnemyPrefab == null) return;
-        foreach (Transform spawnPoint in droneSpawnPoints)
+        foreach (Transform sp in droneSpawnPoints)
         {
-            GameObject go = Instantiate(droneEnemyPrefab, spawnPoint.position, spawnPoint.rotation);
-            go.GetComponent<DroneController>()?.Initialize(playerTransform);
+            if (droneEnemyPrefab == null) continue;
+            GameObject go = Instantiate(droneEnemyPrefab, sp.position, sp.rotation);
+            go.transform.SetParent(transform);
+            go.GetComponent<DroneController>()?.Initialize(player);
+            camp.RegisterEnemy(go.GetComponent<HealthSystem>());
         }
-    }
-    private void SpawnTurrets()
-    {
-        if (turretPrefab == null) return;
-        foreach (Transform spawnPoint in turretSpawnPoints)
+        foreach (Transform sp in turretSpawnPoints)
         {
-            GameObject go = Instantiate(turretPrefab, spawnPoint.position, spawnPoint.rotation);
-            go.GetComponent<TurretController>()?.Initialize(playerTransform);
+            if (turretPrefab == null) continue;
+            GameObject go = Instantiate(turretPrefab, sp.position, sp.rotation);
+            go.transform.SetParent(transform);
+            go.GetComponent<TurretController>()?.Initialize(player);
+            camp.RegisterEnemy(go.GetComponent<HealthSystem>());
         }
     }
 }

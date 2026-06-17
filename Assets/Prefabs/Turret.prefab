@@ -119,14 +119,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretController
   data: {fileID: 11400000, guid: e85f3c9edfff67242a5598640aeb12b3, type: 2}
+  deathSound: {fileID: 8300000, guid: 9cac7bef5f64c064e9da7c4f2770f0bc, type: 3}
+  shootClip: {fileID: 8300000, guid: 29c04ba19da834fb0968146ce5e3a847, type: 3}
+  muzzleFlash: {fileID: 19800004, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
+  explosionParticle: {fileID: 19800004, guid: b46890100828db6429ff69c322b45893, type: 3}
   head: {fileID: 2927749701826281285}
   muzzle: {fileID: 2936161854978246501}
   headAnimator: {fileID: 3025745798396708431}
-  muzzleFlash: {fileID: 19800004, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
-  explosionParticle: {fileID: 19800004, guid: b46890100828db6429ff69c322b45893, type: 3}
   laserRenderer: {fileID: 159625631586223904}
-  audioSource: {fileID: 2993488306219784549}
-  shootClip: {fileID: 8300000, guid: 29c04ba19da834fb0968146ce5e3a847, type: 3}
   hitMask:
     serializedVersion: 2
     m_Bits: 256
@@ -243,11 +243,6 @@ LineRenderer:
 --- !u!4 &2936161854978246501 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4822253877191706, guid: 2fafc82d17757493ca36f1cfb64b683d, type: 3}
-  m_PrefabInstance: {fileID: 2931410660541211519}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &2993488306219784549 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 82603800130370074, guid: 2fafc82d17757493ca36f1cfb64b683d, type: 3}
   m_PrefabInstance: {fileID: 2931410660541211519}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &3025745798396708431 stripped

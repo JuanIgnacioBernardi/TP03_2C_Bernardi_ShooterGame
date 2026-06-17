@@ -7,15 +7,19 @@ public class TurretController : MonoBehaviour
     [Header("Data")]
     [SerializeField] private TurretDataSO data;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip shootClip;
+
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private ParticleSystem explosionParticle;
+
     [Header("References")]
     [SerializeField] private Transform head;
     [SerializeField] private Transform muzzle;
     [SerializeField] private Animator headAnimator;
-    [SerializeField] private ParticleSystem muzzleFlash;
-    [SerializeField] private ParticleSystem explosionParticle;
     [SerializeField] private LineRenderer laserRenderer;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip shootClip;
     [SerializeField] private LayerMask hitMask;
 
     private Transform player;
@@ -95,7 +99,7 @@ public class TurretController : MonoBehaviour
     private void PlayMuzzleEffects()
     {
         headAnimator?.SetTrigger(HashShot);
-        audioSource?.PlayOneShot(shootClip);
+        AudioEvents.RaisePlaySFX(shootClip);
         if (muzzleFlash == null) return;
         muzzleFlash.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         muzzleFlash.Play();
@@ -108,6 +112,7 @@ public class TurretController : MonoBehaviour
     }
     private void OnDie()
     {
+        if (deathSound != null) AudioEvents.RaisePlaySFX(deathSound);
         isDead = true;
         StopAllCoroutines();
 
@@ -119,9 +124,7 @@ public class TurretController : MonoBehaviour
     {
         if (explosionParticle != null)
         {
-            ParticleSystem explosion = Instantiate(explosionParticle,
-                                                    transform.position,
-                                                    Quaternion.identity);
+            ParticleSystem explosion = Instantiate(explosionParticle, transform.position, Quaternion.identity);
             explosion.Play();
             Destroy(explosion.gameObject, explosion.main.duration + 1f);
         }

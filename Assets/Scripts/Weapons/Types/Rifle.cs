@@ -13,6 +13,10 @@ public class Rifle : WeaponBase
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private Light muzzleLight;
 
+    private bool isPaused;
+    private void OnEnable() => GameEvents.onPauseChanged += OnPauseChanged;
+    private void OnDisable() => GameEvents.onPauseChanged -= OnPauseChanged;
+    private void OnPauseChanged(bool paused) => isPaused = paused;
     private Coroutine muzzleLightCoroutine;
     protected override void Awake()
     {
@@ -20,6 +24,7 @@ public class Rifle : WeaponBase
     }
     private void Update()
     {
+        if (isPaused) return;
         if (Mouse.current.leftButton.isPressed)
             TryShoot();
 

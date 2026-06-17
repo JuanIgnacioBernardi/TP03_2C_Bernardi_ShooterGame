@@ -28,6 +28,9 @@ public class FPSCameraController : MonoBehaviour
     private float currentYaw;
     private float targetYaw;
     private bool cursorLocked = true;
+    private bool isPaused;
+    private void OnEnable() => GameEvents.onPauseChanged += OnPauseChanged;
+    private void OnDisable() => GameEvents.onPauseChanged -= OnPauseChanged;
     private void Start()
     {
         LockCursor(true);
@@ -40,9 +43,8 @@ public class FPSCameraController : MonoBehaviour
     }
     private void Update()
     {
+        if (isPaused) return;
         HandleCursorLock();
-        if (!cursorLocked) return;
-
         ReadMouseInput();
         ApplyRotation();
     }
@@ -73,11 +75,16 @@ public class FPSCameraController : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(currentPitch, 0f, 0f);
     }
+
+    private void OnPauseChanged(bool paused)
+    {
+        isPaused = paused;
+        cursorLocked = !paused;
+        Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = paused;
+    }
     private void HandleCursorLock()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            LockCursor(false);
-
         if (Mouse.current.leftButton.wasPressedThisFrame && !cursorLocked)
             LockCursor(true);
     }

@@ -16,8 +16,12 @@ public class FPSController : MonoBehaviour
     private bool isGrounded;
     private bool isCrouching;
     private bool isRunning;
+    private bool isPaused;
     private float standingCamHeight;
     private float crouchingCamHeight;
+    private void OnEnable() => GameEvents.onPauseChanged += OnPauseChanged;
+    private void OnDisable() => GameEvents.onPauseChanged -= OnPauseChanged;
+    private void OnPauseChanged(bool paused) => isPaused = paused;
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -28,6 +32,8 @@ public class FPSController : MonoBehaviour
     }
     private void Update()
     {
+        if (isPaused) return;
+
         CheckGround();
         HandleCrouch();
         HandleMovement();

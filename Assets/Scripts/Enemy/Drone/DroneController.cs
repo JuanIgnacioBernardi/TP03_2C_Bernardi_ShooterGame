@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(DroneMovement))]
 [RequireComponent(typeof(HealthSystem))]
@@ -8,19 +9,25 @@ public class DroneController : MonoBehaviour
     [Header("Data")]
     [SerializeField] private DroneDataSO data;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip deathSound;
+
     [Header("References")]
     [SerializeField] private Transform shootPoint;
     [SerializeField] private LineRenderer laserRenderer;
     [SerializeField] private ParticleSystem explosionParticle;
     [SerializeField] private LayerMask hitMask;
 
+    private DroneState state = DroneState.Patrol;
     private DroneMovement movement;
     private HealthSystem healthSystem;
     private Rigidbody rb;
     private Transform player;
-    private DroneState state = DroneState.Patrol;
-    private bool isDead;
     private Coroutine attackCoroutine;
+    private Vector3 pendingPosition;
+    private bool hasPendingMove;
+    private bool isDead;
     private void Awake()
     {
         movement = GetComponent<DroneMovement>();
@@ -51,16 +58,16 @@ public class DroneController : MonoBehaviour
         switch (state)
         {
             case DroneState.Patrol:
-                movement.UpdateHeight();
                 UpdatePatrol();
+                movement.UpdateHeight();
                 break;
             case DroneState.Follow:
-                movement.UpdateHeightCombat(); // lowers as it approaches
                 UpdateFollow();
+                movement.UpdateHeightCombat();
                 break;
             case DroneState.Attack:
-                movement.UpdateHeightCombat(); // keeps low for shooting
                 UpdateAttack();
+                movement.UpdateHeightCombat();
                 break;
         }
     }
@@ -141,6 +148,7 @@ public class DroneController : MonoBehaviour
                 // Laser cut off at obstacles
                 if (Physics.Raycast(origin, direction, out RaycastHit hit, data.distanceToShoot))
                 {
+                    Debug.Log($"[Drone Laser] Hit: {hit.collider.name} | Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
                     laserRenderer.SetPosition(0, origin);
                     laserRenderer.SetPosition(1, hit.point);
                 }
@@ -171,6 +179,7 @@ public class DroneController : MonoBehaviour
     }
     private void OnDie()
     {
+        AudioEvents.RaisePlaySFX(deathSound);
         isDead = true;
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         if (laserRenderer != null) laserRenderer.enabled = false;
