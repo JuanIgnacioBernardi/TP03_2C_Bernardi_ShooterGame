@@ -40,12 +40,13 @@ public class PauseGame : MonoBehaviour
     }
     private void Update()
     {
+        if (GameEvents.IsGameOver) return;
+
         if (Keyboard.current.escapeKey.wasPressedThisFrame ||
             Keyboard.current.pKey.wasPressedThisFrame)
         {
             if (isPaused)
             {
-                // if settings menu is open, close it first before resuming the game
                 if (settingsMenu.activeSelf)
                 {
                     OnSettingsBack();

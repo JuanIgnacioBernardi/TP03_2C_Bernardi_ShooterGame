@@ -67,12 +67,14 @@ public class GameOverScreen : MonoBehaviour
     private void OnRetry()
     {
         Time.timeScale = 1f;
+        GameEvents.IsGameOver = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     private void OnSettings() => settingsMenu.SetActive(true);
     private void OnHome()
     {
         Time.timeScale = 1f;
+        GameEvents.IsGameOver = false;
         SceneManager.LoadScene("MainMenu");
     }
     private void OnSettingsBack() => settingsMenu.SetActive(false);

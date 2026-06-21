@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-
 public class HealthKit : MonoBehaviour
 {
     [SerializeField] private HealthKitDataSO data;

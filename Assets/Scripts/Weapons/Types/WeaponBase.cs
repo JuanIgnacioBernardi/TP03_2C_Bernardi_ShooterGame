@@ -33,14 +33,14 @@ public abstract class WeaponBase : MonoBehaviour
     }
     public void TryShoot()
     {
-        if (isPaused || isReloading || currentAmmo <= 0 || Time.time < nextFireTime) return;
+        if (isPaused || GameEvents.IsGameOver || isReloading || currentAmmo <= 0 || Time.time < nextFireTime) return;
         nextFireTime = Time.time + 1f / fireRate;
         currentAmmo--;
         Shoot();
     }
     public void TryReload()
     {
-        if (isPaused || isReloading || currentAmmo == magazineSize) return;
+        if (isPaused || GameEvents.IsGameOver || isReloading || currentAmmo == magazineSize) return;
         StartCoroutine(ReloadRoutine());
     }
     protected abstract void Shoot();

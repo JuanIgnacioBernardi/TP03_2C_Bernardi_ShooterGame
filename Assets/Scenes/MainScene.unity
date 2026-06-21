@@ -6215,18 +6215,6 @@ PrefabInstance:
       value: MedicalKit (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6639660323177224852, guid: e8363e2b646a6c74689d8acb890d0494, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.44444448
-      objectReference: {fileID: 0}
-    - target: {fileID: 6639660323177224852, guid: e8363e2b646a6c74689d8acb890d0494, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6639660323177224852, guid: e8363e2b646a6c74689d8acb890d0494, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.53333336
-      objectReference: {fileID: 0}
-    - target: {fileID: 6639660323177224852, guid: e8363e2b646a6c74689d8acb890d0494, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0333341
       objectReference: {fileID: 0}

@@ -32,7 +32,7 @@ public class FPSController : MonoBehaviour
     }
     private void Update()
     {
-        if (isPaused) return;
+        if (isPaused || GameEvents.IsGameOver) return;
 
         CheckGround();
         HandleCrouch();
