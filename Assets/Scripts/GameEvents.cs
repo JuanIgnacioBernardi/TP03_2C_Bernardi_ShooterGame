@@ -11,7 +11,6 @@ public static class GameEvents
         IsGameOver = true;
         onWin?.Invoke();
     }
-
     public static event System.Action onDeath;
     public static void RaiseDeath()
     {
