@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
     }
+    // Checking if all camps are cleared and raising win event
     private void OnCampCleared(CampController camp)
     {
         clearedCamps++;
