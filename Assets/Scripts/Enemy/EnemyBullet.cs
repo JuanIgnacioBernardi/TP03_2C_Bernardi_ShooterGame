@@ -1,12 +1,17 @@
 using System.Collections;
 using UnityEngine;
-
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyBullet : MonoBehaviour, IPooleable
 {
+    [Header("Data")]
     [SerializeField] private float speed = 20f;
     [SerializeField] private float lifeTime = 3f;
     [SerializeField] private float damage = 10f;
+
+    [Header("Explosion FX")]
+    [SerializeField] private ParticleSystem explosionParticle;
+    [SerializeField] private AudioClip explosionSound;
+    [SerializeField] private float explosionRadius = 3f;
 
     private Rigidbody rb;
     private Coroutine returnCoroutine;
@@ -31,14 +36,12 @@ public class EnemyBullet : MonoBehaviour, IPooleable
         rb.linearVelocity = Vector3.zero;
         gameObject.SetActive(false);
     }
-    // Direct Shot
     public void Spawn(Vector3 position, Vector3 direction)
     {
         transform.SetPositionAndRotation(position, Quaternion.LookRotation(direction));
         Activate();
         rb.linearVelocity = direction.normalized * speed;
     }
-    // Parabolic arc for grenades
     public void Move(Vector3 startPos, Vector3 endPos, float duration, float height)
     {
         transform.position = startPos;
@@ -59,12 +62,23 @@ public class EnemyBullet : MonoBehaviour, IPooleable
             time += Time.deltaTime;
             yield return null;
         }
-        // Reached the destination & apply area damage as an explosion
         rb.isKinematic = false;
         arcCoroutine = null;
+        Explode();
+    }
+    private void Explode()
+    {
+        if (explosionParticle != null)
+        {
+            ParticleSystem explosion = Instantiate(explosionParticle, transform.position, Quaternion.identity);
+            explosion.Play();
+            Destroy(explosion.gameObject, explosion.main.duration + 1f);
+        }
 
-        // Area damage upon arrival
-        Collider[] hits = Physics.OverlapSphere(transform.position, 3f);
+        if (explosionSound != null)
+            AudioEvents.RaisePlaySFX(explosionSound);
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider hit in hits)
         {
             IDamageable target = hit.GetComponentInParent<IDamageable>();
