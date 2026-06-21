@@ -88,24 +88,19 @@ public class EnemyShoot : MonoBehaviour
     }
     private void ShootRaycast()
     {
-        Debug.Log("[EnemyShoot] ShootRaycast called");
         if (controller.Player == null) return;
 
         Vector3 targetPos = controller.Player.position + Vector3.up * 1f; 
         Vector3 direction = (targetPos - shootingPos.position).normalized;
 
-        Debug.DrawRay(shootingPos.position, direction * controller.Data.distanceToShoot,
-                      Color.red, 2f);
+        Debug.DrawRay(shootingPos.position, direction * controller.Data.distanceToShoot, Color.red, 2f);
 
         if (Physics.Raycast(shootingPos.position, direction,
             out RaycastHit hit, controller.Data.distanceToShoot))
         {
-            Debug.Log($"[EnemyShoot] Hit: {hit.collider.name}");
             IDamageable target = hit.collider.GetComponentInParent<IDamageable>();
             target?.TakeDamage(controller.Data.shootingDamage);
         }
-        else
-            Debug.Log("[EnemyShoot] No hit");
     }
     // ── Grenade ────────────
     public void ThrowObject(bool active, Transform startPos)
