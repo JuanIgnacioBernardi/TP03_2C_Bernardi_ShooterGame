@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Assault Rifle
   hudIcon: {fileID: 0}
   damage: 28
-  range: 120
+  range: 40
   fireRate: 8
   reloadTime: 2.5
   magazineSize: 30

@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Pistol
   hudIcon: {fileID: 0}
   damage: 35
-  range: 40
+  range: 15
   fireRate: 3
   reloadTime: 1.6
   magazineSize: 12
