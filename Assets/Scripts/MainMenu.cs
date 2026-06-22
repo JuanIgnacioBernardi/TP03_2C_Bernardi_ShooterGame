@@ -42,7 +42,8 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayGame()
     {
-        SceneManager.LoadScene("MainScene");
+        GameBootstrapper.Instance.SceneManager.GoToGameplay();
+        GameBootstrapper.Instance.SceneManager.ActivateScene();
     }
     public void OpenSettings()
     {
