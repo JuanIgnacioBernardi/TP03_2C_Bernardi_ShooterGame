@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class AudioManager : MonoBehaviour
 {
     private AudioSource musicSource;
