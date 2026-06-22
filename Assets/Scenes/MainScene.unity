@@ -2163,7 +2163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Pistol
   data: {fileID: 11400000, guid: 997ba8b054d187b498c4241e064d9eaf, type: 2}
   playerCamera: {fileID: 330585545}
-  audioSource: {fileID: 809000510}
+  audioSource: {fileID: 0}
   hitMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -3880,11 +3880,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 40391189}
   m_SourcePrefab: {fileID: 100100000, guid: dfec00be6c7c5b944991547485554901, type: 3}
---- !u!82 &809000510 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 998351294488491178, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-  m_PrefabInstance: {fileID: 1316172845}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &829713213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6168,63 +6163,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1891039417}
   m_SourcePrefab: {fileID: 100100000, guid: 9732a241b7bd0fa4a8e59553d6d8a2b0, type: 3}
---- !u!1001 &1316172845
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4429409354653588905, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_Name
-      value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7858171631636680114, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9b1af92291e394c4ead7acddb973bb6c, type: 3}
 --- !u!1 &1318201466
 GameObject:
   m_ObjectHideFlags: 0
@@ -7376,7 +7314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Rifle
   data: {fileID: 11400000, guid: 40f4bd8fb3408a243b5133ca13e32f11, type: 2}
   playerCamera: {fileID: 330585545}
-  audioSource: {fileID: 809000510}
+  audioSource: {fileID: 0}
   hitMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -9762,7 +9700,6 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 5004455529658836636}
   - {fileID: 1322120539}
-  - {fileID: 1316172845}
   - {fileID: 79451119}
   - {fileID: 1499988750}
   - {fileID: 1275318822}

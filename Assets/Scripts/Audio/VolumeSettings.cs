@@ -49,8 +49,14 @@ public class VolumeSettings : MonoBehaviour
         float sfx = PlayerPrefs.GetFloat("sfxVolume", DEFAULT_VOLUME);
         float ui = PlayerPrefs.GetFloat("uiVolume", DEFAULT_VOLUME);
 
-        musicSlider.value = music;
-        sfxSlider.value = sfx;
-        uiSlider.value = ui;
+        // Set the sliders without firing onValueChanged
+        musicSlider.SetValueWithoutNotify(music);
+        sfxSlider.SetValueWithoutNotify(sfx);
+        uiSlider.SetValueWithoutNotify(ui);
+
+        // Apply directly to the mixer
+        ApplyVolume("Music", "musicVolume", music);
+        ApplyVolume("SFX", "sfxVolume", sfx);
+        ApplyVolume("UI", "uiVolume", ui);
     }
 }
