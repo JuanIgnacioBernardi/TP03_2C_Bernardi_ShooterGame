@@ -24,6 +24,7 @@ public class PlayerInventory : MonoBehaviour
     private void Update()
     {
         if (kitCount <= 0 || isHealing) return;
+        if (healthSystem.CurrentHealth >= healthSystem.MaxHealth) return;
         if (!Keyboard.current.qKey.wasPressedThisFrame) return;
 
         UseHealthKit();
