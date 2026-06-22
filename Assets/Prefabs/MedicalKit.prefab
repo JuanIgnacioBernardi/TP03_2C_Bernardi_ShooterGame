@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthKit
   data: {fileID: 11400000, guid: 5c3c537a227e610408a9e32ad17dc99d, type: 2}
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: c58a5374bc6ce1c4990077c4f49a018c, type: 3}
   medicalText: {fileID: 4728389082897321872}
 --- !u!135 &5362226194675725728
 SphereCollider:
