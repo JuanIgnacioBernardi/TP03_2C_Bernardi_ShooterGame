@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretController
   data: {fileID: 11400000, guid: e85f3c9edfff67242a5598640aeb12b3, type: 2}
-  deathSound: {fileID: 8300000, guid: 9cac7bef5f64c064e9da7c4f2770f0bc, type: 3}
+  deathSound: {fileID: 8300000, guid: 22f4a1a538eb44449bd69b18dd94b3b2, type: 3}
   shootClip: {fileID: 8300000, guid: 29c04ba19da834fb0968146ce5e3a847, type: 3}
   muzzleFlash: {fileID: 19800004, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
   explosionParticle: {fileID: 19800004, guid: b46890100828db6429ff69c322b45893, type: 3}

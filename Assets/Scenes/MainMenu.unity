@@ -219,8 +219,8 @@ MonoBehaviour:
   settingsBtn: {fileID: 1607530598}
   quitBtn: {fileID: 1877583952}
   settingsBtnBack: {fileID: 517826348}
-  clickSound: {fileID: 0}
-  hoverSound: {fileID: 0}
+  clickSound: {fileID: 8300000, guid: fd2d40c63a3e12c47b90ed32468ebb53, type: 3}
+  hoverSound: {fileID: 8300000, guid: 644deaa41f1f64241b590f897ae42a39, type: 3}
 --- !u!114 &338585621
 MonoBehaviour:
   m_ObjectHideFlags: 0

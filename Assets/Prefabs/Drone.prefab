@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DroneController
   data: {fileID: 11400000, guid: 744e14ef787819c449ad5559f398db76, type: 2}
   attackSound: {fileID: 8300000, guid: 2dc135c2fc0525947ad5d6f4d5971203, type: 3}
-  deathSound: {fileID: 8300000, guid: 9cac7bef5f64c064e9da7c4f2770f0bc, type: 3}
+  deathSound: {fileID: 8300000, guid: 22f4a1a538eb44449bd69b18dd94b3b2, type: 3}
   shootPoint: {fileID: 6172959483810253465}
   laserRenderer: {fileID: 679724718723768365}
   explosionParticle: {fileID: 19800004, guid: b46890100828db6429ff69c322b45893, type: 3}
