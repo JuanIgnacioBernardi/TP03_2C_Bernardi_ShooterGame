@@ -579,7 +579,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 400, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111964460
 MonoBehaviour:
@@ -645,7 +645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 97927463, guid: 125ad98d94ccb3d49960807472eafcd0, type: 3}
+  m_Sprite: {fileID: 21300074, guid: 24cd116120ef9594a8c0c970c7b10ee7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5983,11 +5983,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718521747793728254, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4266254571728597026, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4732755193271224993, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_SortingOrder
@@ -5995,23 +5995,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5376228893343270007, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6630552203357872932, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.3229323
       objectReference: {fileID: 0}
     - target: {fileID: 6630552203357872932, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6630552203357872932, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.3229323
       objectReference: {fileID: 0}
     - target: {fileID: 6669278811912514278, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7441035706211335173, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_Name
@@ -6023,11 +6023,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9014211835795584119, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.3229323
       objectReference: {fileID: 0}
     - target: {fileID: 9014211835795584119, guid: 096e93bf3e695e849a7e34e95eb76e37, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -6199,7 +6199,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1318201468
 MonoBehaviour:
@@ -6265,7 +6265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1099598140, guid: 125ad98d94ccb3d49960807472eafcd0, type: 3}
+  m_Sprite: {fileID: 21300066, guid: 24cd116120ef9594a8c0c970c7b10ee7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8086,7 +8086,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -400, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1821572453
 MonoBehaviour:
@@ -8152,7 +8152,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1154674650, guid: 125ad98d94ccb3d49960807472eafcd0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 24cd116120ef9594a8c0c970c7b10ee7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
