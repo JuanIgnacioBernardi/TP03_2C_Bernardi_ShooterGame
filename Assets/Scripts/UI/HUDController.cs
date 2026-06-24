@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HUDController : MonoBehaviour
 {
+    [Header("Weapon Icon")]
+    [SerializeField] private Image weaponIcon;
+
     [Header("Damage Feedback")]
     [SerializeField] private DamageScreen damageScreen;
 
@@ -64,6 +67,13 @@ public class HUDController : MonoBehaviour
         {
             _currentWeapon = weapon;
             weaponNameText.text = weapon.Data != null ? weapon.Data.weaponName : weapon.name;
+
+            // Update the weapon icon if the weapon has changed
+            if (weaponIcon != null && weapon.Data != null)
+            {
+                weaponIcon.sprite = weapon.Data.hudIcon;
+                weaponIcon.enabled = weapon.Data.hudIcon != null;
+            }
         }
         ammoText.text = $"{weapon.CurrentAmmo} / {weapon.MagazineSize}";
         ammoText.color = weapon.CurrentAmmo <= weapon.MagazineSize * 0.25f ? Color.red : Color.white;
