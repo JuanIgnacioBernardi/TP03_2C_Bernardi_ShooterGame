@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-
 public class MainMenu : MonoBehaviour
 {
     [Header("Canvas references")]
     [SerializeField] private GameObject mainCanvas;
     [SerializeField] private GameObject settingsCanvas;
+    [SerializeField] private GameObject creditsCanvas;
 
     [Header("GameObjects references")]
     [SerializeField] private GameObject main;
@@ -15,8 +14,10 @@ public class MainMenu : MonoBehaviour
     [Header("Buttons reference")]
     [SerializeField] private Button playBtn;
     [SerializeField] private Button settingsBtn;
+    [SerializeField] private Button creditsBtn;
     [SerializeField] private Button quitBtn;
     [SerializeField] private Button settingsBtnBack;
+    [SerializeField] private Button creditsBtnBack;
 
     [Header("Sound references")]
     [SerializeField] private AudioClip clickSound;
@@ -25,20 +26,25 @@ public class MainMenu : MonoBehaviour
     {
         playBtn.onClick.AddListener(PlayGame);
         settingsBtn.onClick.AddListener(OpenSettings);
+        creditsBtn.onClick.AddListener(OpenCredits);
         quitBtn.onClick.AddListener(QuitGame);
         settingsBtnBack.onClick.AddListener(CloseSettings);
+        creditsBtnBack.onClick.AddListener(CloseCredits);
         AddHoverSound(playBtn);
         AddHoverSound(settingsBtn);
+        AddHoverSound(creditsBtn);
         AddHoverSound(quitBtn);
         AddHoverSound(settingsBtnBack);
+        AddHoverSound(creditsBtnBack);
     }
     private void OnDestroy()
     {
         playBtn.onClick.RemoveAllListeners();
         settingsBtn.onClick.RemoveAllListeners();
+        creditsBtn.onClick.RemoveAllListeners();
         quitBtn.onClick.RemoveAllListeners();
         settingsBtnBack.onClick.RemoveAllListeners();
-
+        creditsBtnBack.onClick.RemoveAllListeners();
     }
     public void PlayGame()
     {
@@ -47,17 +53,31 @@ public class MainMenu : MonoBehaviour
     }
     public void OpenSettings()
     {
+        AudioEvents.RaisePlayUI(clickSound);
         settingsCanvas.SetActive(true);
+        mainCanvas.SetActive(false);
+    }
+    public void OpenCredits()
+    {
+        AudioEvents.RaisePlayUI(clickSound);
+        creditsCanvas.SetActive(true);
         mainCanvas.SetActive(false);
     }
     public void QuitGame()
     {
+        AudioEvents.RaisePlayUI(clickSound);
         Application.Quit();
     }
     public void CloseSettings()
     {
         AudioEvents.RaisePlayUI(clickSound);
         settingsCanvas.SetActive(false);
+        mainCanvas.SetActive(true);
+    }
+    public void CloseCredits()
+    {
+        AudioEvents.RaisePlayUI(clickSound);
+        creditsCanvas.SetActive(false);
         mainCanvas.SetActive(true);
     }
     public void GoToMain()

@@ -275,7 +275,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_rock_Play4_10
+      name: Play_Singular
       rect:
         serializedVersion: 2
         x: 54
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_rock_Play4_13
+      name: Restart_Singular
       rect:
         serializedVersion: 2
         x: 303
@@ -319,7 +319,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_rock_Play4_15
+      name: Exit_Singular
       rect:
         serializedVersion: 2
         x: 578
@@ -341,7 +341,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_rock_Play4_17
+      name: Menu_Singular
       rect:
         serializedVersion: 2
         x: 825
@@ -363,7 +363,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_rock_Play4_21
+      name: Share_Singular
       rect:
         serializedVersion: 2
         x: 1077
@@ -385,7 +385,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_rock_Play4_22
+      name: Settings_Singular
       rect:
         serializedVersion: 2
         x: 47
@@ -407,7 +407,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_rock_Play4_23
+      name: Resume_Singular
       rect:
         serializedVersion: 2
         x: 311
@@ -490,29 +490,29 @@ TextureImporter:
     nameFileIdTable:
       Cursor: -1134260856
       ExitBtn: -508206927
+      Exit_Singular: -34532495
       MainMenuBtn: -456557
+      Menu_Singular: 732975429
       PlayBtn: -1657803018
+      Play_Singular: 315153918
       RestartBtn: -1161237418
+      Restart_Singular: 1065589538
       ResumeBtn: 1052961170
+      Resume_Singular: 1949284089
       SettingsBtn: -928015678
+      Settings_Singular: 331574351
+      Share_Singular: -723353290
       Star: 1407834110
       button_rock_Play4_0: 1594276298
       button_rock_Play4_1: 1361837587
-      button_rock_Play4_10: 315153918
       button_rock_Play4_11: 517988923
       button_rock_Play4_12: -810317529
-      button_rock_Play4_13: 1065589538
       button_rock_Play4_14: 1107039136
-      button_rock_Play4_15: -34532495
       button_rock_Play4_16: 186029488
-      button_rock_Play4_17: 732975429
       button_rock_Play4_18: -1963493488
       button_rock_Play4_19: 652046263
       button_rock_Play4_2: -1999462778
       button_rock_Play4_20: 1990612937
-      button_rock_Play4_21: -723353290
-      button_rock_Play4_22: 331574351
-      button_rock_Play4_23: 1949284089
       button_rock_Play4_24: 779911986
       button_rock_Play4_25: 2074665741
       button_rock_Play4_26: 1990159264
