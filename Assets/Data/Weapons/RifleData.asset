@@ -21,5 +21,5 @@ MonoBehaviour:
   magazineSize: 30
   muzzleLightDuration: 0.06
   shootSound: {fileID: 8300000, guid: a25c899366afcc2468914ee6a170afca, type: 3}
-  reloadSound: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: f8d07cd8d6421374b87dc492fcc93712, type: 3}
   pickupPrefab: {fileID: 0}

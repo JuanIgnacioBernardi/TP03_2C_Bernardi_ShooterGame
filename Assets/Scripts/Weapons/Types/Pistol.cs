@@ -32,8 +32,8 @@ public class Pistol : WeaponBase
         float lightDuration = data != null ? data.muzzleLightDuration : 0.1f;
         PlayMuzzleEffects(muzzleFlash, muzzleLight, lightDuration, ref muzzleLightCoroutine);
 
-        if (audioSource != null && data != null && data.shootSound != null)
-            audioSource.PlayOneShot(data.shootSound);
+        if (data.shootSound != null)
+            AudioEvents.RaisePlaySFX(data.shootSound);
 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
@@ -46,7 +46,7 @@ public class Pistol : WeaponBase
     }
     protected override void OnReloadStart()
     {
-        if (audioSource != null && data != null && data.reloadSound != null)
-            audioSource.PlayOneShot(data.reloadSound);
+        if (data.reloadSound != null)
+            AudioEvents.RaisePlaySFX(data.reloadSound);
     }
 }
