@@ -17,9 +17,8 @@ MonoBehaviour:
   damage: 28
   range: 40
   fireRate: 8
-  reloadTime: 2.5
+  reloadTime: 1.881
   magazineSize: 30
   muzzleLightDuration: 0.06
   shootSound: {fileID: 8300000, guid: a25c899366afcc2468914ee6a170afca, type: 3}
-  reloadSound: {fileID: 8300000, guid: f8d07cd8d6421374b87dc492fcc93712, type: 3}
-  pickupPrefab: {fileID: 0}
+  reloadSound: {fileID: 8300000, guid: 47ee423632ab9fd4a895578e38b37a08, type: 3}
