@@ -1,9 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
 public class GameOverScreen : MonoBehaviour
 {
     public enum ScreenType { Win, Death }
@@ -68,14 +65,16 @@ public class GameOverScreen : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameEvents.IsGameOver = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameBootstrapper.Instance.SceneManager.GoToGameplay();
+        GameBootstrapper.Instance.SceneManager.ActivateScene();
     }
     private void OnSettings() => settingsMenu.SetActive(true);
     private void OnHome()
     {
         Time.timeScale = 1f;
         GameEvents.IsGameOver = false;
-        SceneManager.LoadScene("MainMenu");
+        GameBootstrapper.Instance.SceneManager.GoToMainMenu();
+        GameBootstrapper.Instance.SceneManager.ActivateScene();
     }
     private void OnSettingsBack() => settingsMenu.SetActive(false);
     private void AddHoverSound(Button button)
