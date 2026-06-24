@@ -20,7 +20,4 @@ public class WeaponDataSO : ScriptableObject
     [Header("Audio")]
     public AudioClip shootSound;
     public AudioClip reloadSound;
-
-    [Header("Pickup")]
-    public GameObject pickupPrefab; 
 }
