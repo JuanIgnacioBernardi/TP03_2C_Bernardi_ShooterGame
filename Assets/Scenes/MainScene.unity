@@ -6919,6 +6919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5087cc80cc721f24fa565a17042ea438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FPSCameraController
+  customCursor: {fileID: 2800000, guid: ef91c485dea576941b9ef364ac35ecd4, type: 3}
+  cursorHotspot: {x: 0, y: 0}
   sensitivityX: 0.3
   sensitivityY: 0.3
   smoothing: 0

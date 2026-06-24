@@ -3,6 +3,10 @@ using UnityEngine.InputSystem;
 
 public class FPSCameraController : MonoBehaviour
 {
+    [Header("Cursor")]
+    [SerializeField] private Texture2D customCursor;
+    [SerializeField] private Vector2 cursorHotspot = Vector2.zero;
+
     [Header("Mouse sensitivity")]
     [Range(0.01f, 1f)]
     [SerializeField] private float sensitivityX = 0.15f;
@@ -82,6 +86,8 @@ public class FPSCameraController : MonoBehaviour
         cursorLocked = !paused;
         Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = paused;
+
+        Cursor.SetCursor(paused ? customCursor : null, cursorHotspot, CursorMode.ForceSoftware);
     }
     private void HandleCursorLock()
     {
@@ -93,6 +99,9 @@ public class FPSCameraController : MonoBehaviour
         cursorLocked = locked;
         Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !locked;
+
+        // Set the custom cursor when unlocked, and reset to default when locked
+        Cursor.SetCursor(!locked ? customCursor : null, cursorHotspot, CursorMode.Auto);
     }
     public float CurrentPitch => currentPitch;
     public bool IsCursorLocked => cursorLocked;
