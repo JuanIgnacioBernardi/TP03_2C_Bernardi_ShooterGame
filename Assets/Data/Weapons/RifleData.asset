@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RifleData
   m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
   weaponName: Assault Rifle
-  hudIcon: {fileID: 0}
+  hudIcon: {fileID: 21300000, guid: 233d83cc31dcc7c43acc1a29b00248fe, type: 3}
   damage: 28
   range: 40
   fireRate: 8
