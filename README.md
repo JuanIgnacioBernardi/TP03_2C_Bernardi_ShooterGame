@@ -67,4 +67,4 @@ Música y SFX: Freesound & Unity Asset Store
 
 ## 🎮 Link itch.io
 
-https://juandev19.itch.io/
+[[https://juandev19.itch.io/](https://juandev19.itch.io/shootergame)
